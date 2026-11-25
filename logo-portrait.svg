@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 856" fill="none">
+  <defs>
+    <radialGradient id="ffproLogoPortraitBg" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="matrix(0 428 -310 0 310 428)">
+      <stop offset="1" stop-color="#EBF4F5"/>
+    </radialGradient>
+  </defs>
+  <path d="M228 0L392 0C517.938 0 620 102.062 620 228L620 628C620 753.938 517.938 856 392 856L228 856C102.062 856 0 753.938 0 628L0 228C0 102.062 102.062 0 228 0Z" fill="url(#ffproLogoPortraitBg)"/>
+  <path d="M0 0C4.97321 0.000244141 308.5 0 308.5 0" stroke-width="70" stroke="#000000" stroke-linecap="round" transform="translate(195 376)"/>
+  <path d="M451.5 22.7106C310.305 -155.889 135.704 787.779 0 457.712" stroke-width="100" stroke="#000000" stroke-linecap="round" transform="translate(85 164.789)"/>
+</svg>

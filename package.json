@@ -1,0 +1,25 @@
+{
+  "name": "ffpro",
+  "productName": "FFpro",
+  "version": "1.0.0",
+  "description": "FontForgePro (FFpro) - a local offline font editor based on Glyphr Studio 2.10.0 (GPL-3.0)",
+  "main": "main.js",
+  "license": "GPL-3.0",
+  "author": "FontForgePro (FFpro); based on Glyphr Studio contributors (GPL-3.0)",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . \"FFpro\" --platform=win32 --arch=x64 --out=release --overwrite --icon=icon.ico"
+  },
+  "devDependencies": {
+    "@electron/packager": "20.3.0",
+    "electron": "45.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username-xusir/FontForgePro.git"
+  },
+  "homepage": "https://github.com/username-xusir/FontForgePro#readme",
+  "bugs": {
+    "url": "https://github.com/username-xusir/FontForgePro/issues"
+  }
+}
