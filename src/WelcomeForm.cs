@@ -84,7 +84,7 @@ namespace FontForgePro
             left.Controls.Add(tagline);
 
             var version = new Label();
-            version.Text = "2.3.0  ·  FontForge 20251009";
+            version.Text = "2.4.0  ·  FontForge 20251009";
             version.Font = Mono(8F);
             version.ForeColor = Color.FromArgb(110, 110, 118);
             version.AutoSize = false;

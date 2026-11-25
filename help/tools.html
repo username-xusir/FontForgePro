@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工具与网格说明 · FontForgePro</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 24px 64px;
+    background: #0b0b0c; color: #f4f4f5;
+    font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 28px; }
+  .sub { color: #9a9aa2; font-size: 14px; margin-bottom: 28px; }
+  h2 { margin: 34px 0 10px; font-size: 20px; }
+  h3 { margin: 20px 0 8px; font-size: 15px; color: #f4f4f5; }
+  p, li { color: #d4d4d8; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #26262a; vertical-align: top; }
+  th { color: #9ad88a; font-weight: 700; }
+  td:first-child { color: #fff; white-space: nowrap; }
+  code, kbd {
+    background: #1c1c20; border: 1px solid #2f2f35; border-radius: 5px;
+    padding: 1px 6px; font-family: Consolas, "Cascadia Mono", monospace;
+  }
+  .note {
+    border: 1px solid #2f3b2a; background: #121a10; border-radius: 12px;
+    padding: 14px 18px; margin: 16px 0;
+  }
+  .note p { margin: 0; color: #c9e8bf; }
+  a { color: #9ad88a; }
+  .back { display: inline-block; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>工具与网格说明</h1>
+  <div class="sub">字形窗口左侧工具栏、鼠标键位、网格、预览和线条粗细</div>
+
+  <h2>工具栏名称（从上到下）</h2>
+  <table>
+    <thead><tr><th>名称</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td>指针 Pointer</td><td>选择、拖动点和控制柄；双击打开指针选项。</td></tr>
+      <tr><td>放大镜 Magnify</td><td>点击放大；按住 Alt 点击缩小。</td></tr>
+      <tr><td>自由绘制 Freehand</td><td>按住鼠标画线。<strong>双击这个图标</strong>可以在绘制前设置笔触粗细、端点和连接方式。</td></tr>
+      <tr><td>滚动 Scroll</td><td>拖动画布，不移动字形。</td></tr>
+      <tr><td>剪刀 Knife</td><td>切开轮廓或路径。</td></tr>
+      <tr><td>测量 Ruler</td><td>测量两点距离和角度；双击打开测量选项。</td></tr>
+      <tr><td>钢笔 Pen</td><td>添加点并拖出控制柄，适合画曲线。</td></tr>
+      <tr><td>Spiro</td><td>切换 Spiro 模式（需要 libspiro）。</td></tr>
+      <tr><td>曲线点 Curve</td><td>添加平滑曲线点。</td></tr>
+      <tr><td>水平/垂直曲线 HVCurve</td><td>添加水平或垂直方向的曲线点。</td></tr>
+      <tr><td>角点 Corner</td><td>添加尖角点。</td></tr>
+      <tr><td>切线点 Tangent</td><td>添加相切点。</td></tr>
+      <tr><td>缩放 Scale</td><td>缩放选中的点或字形。</td></tr>
+      <tr><td>旋转 Rotate</td><td>旋转选中的内容。</td></tr>
+      <tr><td>翻转 Flip</td><td>水平或垂直翻转。</td></tr>
+      <tr><td>倾斜 Skew</td><td>倾斜选中的内容。</td></tr>
+      <tr><td>3D 旋转 3D Rotate</td><td>在三维中旋转并投影回平面。</td></tr>
+      <tr><td>透视 Perspective</td><td>透视变换选中的内容。</td></tr>
+      <tr><td>矩形/椭圆</td><td>画矩形或椭圆；<strong>双击图标</strong>在两者之间切换。</td></tr>
+      <tr><td>多边形/星形</td><td>画多边形或星形；<strong>双击图标</strong>在两者之间切换。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>鼠标键位标签 Mse1 / Mse2</h2>
+  <p>工具栏下方的四个小图标是你为鼠标按键分配的工具，名字来自 FontForge 的内部缩写：</p>
+  <table>
+    <tbody>
+      <tr><td>Mse1</td><td>鼠标左键当前工具。</td></tr>
+      <tr><td>^Mse1</td><td>Ctrl + 鼠标左键当前工具。</td></tr>
+      <tr><td>Mse2</td><td>鼠标右键当前工具。</td></tr>
+      <tr><td>^Mse2</td><td>Ctrl + 鼠标右键当前工具。</td></tr>
+    </tbody>
+  </table>
+  <p>把鼠标停在工具栏图标上约 0.25 秒，会显示该工具的完整名称和快捷键；名称来自 FontForge 的中文翻译。</p>
+
+  <h2>网格模式</h2>
+  <p>字形窗口默认已经打开网格。左侧图层栏里的 <code>#</code> 复选框就是<strong>网格显示开关</strong>：</p>
+  <ul>
+    <li><code>#</code> 勾选：显示坐标网格和辅助线；取消勾选：隐藏网格。</li>
+    <li><code>CB</code>：显示/隐藏背景层；<code>CF</code>：显示/隐藏前景层。</li>
+    <li>底部的 <code>-</code> / <code>+</code>：缩小 / 放大画布。</li>
+    <li>要做 TrueType 像素级网格适配，用 <strong>视图 → Grid Fit → Show Grid Fit…</strong>（或 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>#</kbd>）。</li>
+  </ul>
+  <div class="note">
+    <p>如果看不到网格：确认 <code>#</code> 已勾选、缩放不要太小；网格线颜色可以在 <strong>文件 → 首选项 → 外观</strong> 里调整。</p>
+  </div>
+
+  <h2>按不同字号预览当前字体 / 当前字形</h2>
+  <p>在字体窗口或字形窗口打开 <strong>工具 → FFpro 工具</strong>：</p>
+  <ul>
+    <li><strong>字体预览（多字号）…</strong>：导出当前字体，在本地页面里按 12、16、24、32、48、64、96、144 px 八档字号显示，文字可编辑并自动保存。</li>
+    <li><strong>当前字形预览（多字号）…</strong>：只显示当前字形在八档字号下的效果，适合检查某个字母、汉字或符号的比例。</li>
+  </ul>
+
+  <h2>调整画线粗细</h2>
+  <ul>
+    <li><strong>绘制前</strong>：双击工具栏里的<strong>自由绘制</strong>图标，设置笔触宽度、端点和连接方式，再画线。</li>
+    <li><strong>绘制后</strong>：选中用钢笔/曲线工具画出的开放路径，打开 <strong>FFpro 工具 → 线条粗细…</strong>，输入字体单位宽度（例如 40），即可把路径加粗成轮廓。</li>
+    <li>线条粗细只处理<strong>开放路径</strong>；已经闭合的填充字形会被跳过，避免破坏原有轮廓。需要整体加粗字形时，用 FontForge 的 <strong>元素 → 样式 → 加粗</strong> 或 <strong>更改字重</strong>。</li>
+  </ul>
+
+  <a class="back" href="index.html">← 返回 FFpro 中文教程</a>
+</div>
+</body>
+</html>

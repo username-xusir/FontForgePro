@@ -1,4 +1,4 @@
-# FontForgePro (FFpro) 2.3.0
+# FontForgePro (FFpro) 2.4.0
 
 A Windows font editor built on the **native FontForge 20251009** application.
 FontForgePro keeps all of FontForge's professional features and adds a dark
@@ -57,7 +57,10 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 | Command | What it does |
 | --- | --- |
 | 字体体检 / Font Audit | Counts glyphs, reports empty/zero-width/negative-width glyphs, runs FontForge validation |
-| 字体预览… / Font Preview... | Exports a temporary WOFF2 and opens a local preview page with editable text and eight sizes |
+| 字体预览（多字号）… / Font Preview (Multi-size)... | Exports a temporary WOFF2 and opens a local preview page with editable text and eight sizes |
+| 当前字形预览（多字号）… / Current Glyph Preview... | Shows the current glyph at the same eight sizes |
+| 线条粗细… / Line Thickness... | Expands open pen/curve paths to a chosen outline width |
+| 工具与网格说明 / Tools and Grid Guide | Opens a local reference for every tool, the Mse1/Mse2 labels, the # grid toggle, preview, and thickness |
 | 补齐基本字符集 / Add Basic Character Set | Adds ASCII, Latin-1, and common punctuation slots with sensible widths |
 | 字形清理 / Clean Glyphs | Rounds coordinates, adds extrema, and corrects contour direction |
 | 水平居中 / Center Glyphs | Centers outlines inside the advance width |
@@ -84,6 +87,13 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
   font is 13 pt, and the default font-view window is sized from the screen so
   low-resolution displays get fewer, larger cells instead of a wall of tiny
   slots.
+- **Toolbar help**: hover a glyph-window tool for its translated name and
+  shortcut after 0.25 s; the local **Tools and Grid Guide** names every icon,
+  explains the `Mse1`/`^Mse1`/`Mse2`/`^Mse2` mouse assignments, the `#` grid
+  toggle, `CB`/`CF` layers, the `-`/`+` zoom buttons, multi-size preview, and
+  line thickness.
+- **Grid**: the glyph-view grid is on by default; click `#` in the layer strip
+  to show or hide it. Grid and coordinate colors are brighter than in 2.3.0.
 - Bundled **Noto Sans SC** UI font (SIL OFL 1.1) used after Microsoft YaHei UI,
   so Chinese labels render on Windows installations without Chinese fonts;
   Segoe UI remains the Arabic fallback.
@@ -162,8 +172,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.3.0-win64.zip` — release archive
-- `release\FontForgePro-v2.3.0-win64.zip.sha256`
+- `release\FontForgePro-v2.4.0-win64.zip` — release archive
+- `release\FontForgePro-v2.4.0-win64.zip.sha256`
 
 Install for the current user:
 
@@ -181,7 +191,7 @@ ARM64 (Windows 11 x64 emulation package):
 powershell -NoProfile -ExecutionPolicy Bypass -File build-arm64.ps1
 ```
 
-The result is `release\FontForgePro-v2.3.0-win-arm64.zip`. See
+The result is `release\FontForgePro-v2.4.0-win-arm64.zip`. See
 [ARM64.md](ARM64.md) for the native ARM64 build path.
 
 ## Project layout
@@ -224,7 +234,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.3.0 is a
+It remains available from the repository's release history. Version 2.4.0 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 

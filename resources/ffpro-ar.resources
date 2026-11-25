@@ -53,7 +53,7 @@ fontforge.CharView.WidthSelColor: #7ee787
 fontforge.CharView.LBearingSelColor: #7ee787
 fontforge.CharView.LigatureCaretColor: #d2a8ff
 fontforge.CharView.AnchoredOutlineColor: #79c0ff
-fontforge.CharView.CoordinateLineColor: #303036
+fontforge.CharView.CoordinateLineColor: #4a4a52
 fontforge.CharView.AscentDescentColor: #806e7681
 fontforge.CharView.ItalicCoordColor: #6e7681
 fontforge.CharView.MetricsLabelColor: #d4d4d8
@@ -97,7 +97,7 @@ fontforge.CharView.GridFitWidthColor: #6e7681
 fontforge.CharView.RasterColor: #ff6e7681
 fontforge.CharView.RasterNewColor: #ff8a8a92
 fontforge.CharView.RasterOldColor: #ff4a4a52
-fontforge.CharView.RasterGridColor: #ff303036
+fontforge.CharView.RasterGridColor: #ff4a4a52
 fontforge.CharView.RasterDarkColor: #ff1c1c20
 fontforge.CharView.BackgroundImageColor: #fe3a3a40
 
@@ -183,11 +183,11 @@ Gdraw.TwoButtonFixup: True
 Gdraw.MacOSXCmd: False
 Gdraw.Synchronize: False
 
-Gdraw.GGadget.Popup.Font: 85% ^View.DefaultFont
+Gdraw.GGadget.Popup.Font: 100% ^View.DefaultFont
 Gdraw.GGadget.Popup.Foreground: #f4f4f5
 Gdraw.GGadget.Popup.Background: #1c1c20
-Gdraw.GGadget.Popup.Delay: 1000
-Gdraw.GGadget.Popup.LifeTime: 20000
+Gdraw.GGadget.Popup.Delay: 250
+Gdraw.GGadget.Popup.LifeTime: 8000
 
 Gdraw.GProgress.Font: ^View.MonoFont
 Gdraw.GProgress.Background: #141416

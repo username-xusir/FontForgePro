@@ -15,8 +15,8 @@ using System.Windows.Forms;
 [assembly: AssemblyProduct("FontForgePro")]
 [assembly: AssemblyCompany("FontForgePro")]
 [assembly: AssemblyCopyright("GPL-3.0-or-later")]
-[assembly: AssemblyVersion("2.3.0.0")]
-[assembly: AssemblyFileVersion("2.3.0.0")]
+[assembly: AssemblyVersion("2.4.0.0")]
+[assembly: AssemblyFileVersion("2.4.0.0")]
 
 namespace FontForgePro
 {
@@ -205,7 +205,7 @@ namespace FontForgePro
 
             env["APPDATA"] = appData;
             env["FFPRO_HOME"] = _home;
-            env["FFPRO_VERSION"] = "2.3.0";
+            env["FFPRO_VERSION"] = "2.4.0";
             env["PYTHONIOENCODING"] = "utf-8";
             env["PYTHONUTF8"] = "1";
             env["LANG"] = locale + ".UTF-8";
@@ -474,7 +474,7 @@ namespace FontForgePro
                 Directory.CreateDirectory(appData);
                 File.WriteAllText(
                     OnboardingMarker(appData),
-                    "2.3.0",
+                    "2.4.0",
                     new UTF8Encoding(false));
             }
             catch

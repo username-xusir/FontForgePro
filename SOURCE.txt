@@ -1,4 +1,4 @@
-FontForgePro 2.3.0 — Corresponding Source
+FontForgePro 2.4.0 — Corresponding Source
 =========================================
 
 This package includes the source code for the FontForgePro-specific parts:
@@ -29,6 +29,7 @@ documentation are under:
   help\official.html
   help\preview-template.html
   help\welcome.html
+  help\tools.html
   help\style.css
 
 The offline mirror of the official FontForge 20251009 documentation is under:

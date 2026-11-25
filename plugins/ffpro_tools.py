@@ -24,7 +24,7 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.3.0"
+PLUGIN_VERSION = "2.4.0"
 
 SUBMENU_LABELS = {
     "zh": "FFpro 工具",
@@ -548,7 +548,7 @@ PREVIEW_SAMPLE = (
 )
 
 
-def _build_preview_page(f) -> pathlib.Path:
+def _build_preview_page(f, sample=None, title_suffix="", extra_meta="") -> pathlib.Path:
     template_path = _help_page("preview-template.html")
     if not template_path.exists():
         raise RuntimeError("找不到预览模板：%s" % template_path)
@@ -591,16 +591,20 @@ def _build_preview_page(f) -> pathlib.Path:
         f.em,
         fontforge.version(),
     )
+    if extra_meta:
+        meta = "%s · %s" % (meta, extra_meta)
+    preview_sample = PREVIEW_SAMPLE if sample is None else sample
+    preview_title = family + (title_suffix or "")
 
     template = template_path.read_text(encoding="utf-8")
     page = (
-        template.replace("__FONT_NAME__", html.escape(family))
+        template.replace("__FONT_NAME__", html.escape(preview_title))
         .replace("__FONT_META__", html.escape(meta))
         .replace("__FONT_MIME__", mime)
         .replace("__FONT_FORMAT__", font_format)
         .replace("__FONT_DATA__", base64.b64encode(font_bytes).decode("ascii"))
-        .replace("__SAMPLE_TEXT__", html.escape(PREVIEW_SAMPLE))
-        .replace("__SAMPLE_JSON__", json.dumps(PREVIEW_SAMPLE, ensure_ascii=False))
+        .replace("__SAMPLE_TEXT__", html.escape(preview_sample))
+        .replace("__SAMPLE_JSON__", json.dumps(preview_sample, ensure_ascii=False))
         .replace("__GENERATED__", time.strftime("%Y-%m-%d %H:%M"))
     )
 
@@ -609,10 +613,33 @@ def _build_preview_page(f) -> pathlib.Path:
     return out
 
 
+def _glyph_preview_sample(g):
+    try:
+        code = int(g.unicode)
+    except Exception:
+        code = -1
+    if code > 0:
+        char = chr(code)
+        sample = ("%s   " % char) * 6 + "\n" + (char * 12)
+        return sample, "当前字形 %s · U+%04X" % (g.glyphname, code), "当前字形预览"
+    return None, "当前字形 %s" % g.glyphname, "当前字形预览"
+
+
 def open_font_preview(_data, obj):
     f = _as_font(obj)
+    sample = None
+    title_suffix = ""
+    extra_meta = ""
+    if isinstance(obj, fontforge.glyph):
+        sample, extra_meta, context = _glyph_preview_sample(obj)
+        title_suffix = " · " + context
+        if sample is None:
+            _notify(
+                "FFpro 字形预览",
+                "这个字形没有 Unicode 编码，预览页将显示字体示例文字。",
+            )
     try:
-        out = _build_preview_page(f)
+        out = _build_preview_page(f, sample, title_suffix, extra_meta)
     except Exception as exc:
         _notify("FFpro 字体预览", "生成预览失败：\n%s" % exc)
         return
@@ -636,6 +663,71 @@ def open_welcome(_data, _obj):
         _open_local(page)
     else:
         _notify("新手引导", "找不到新手引导页面。")
+
+
+def open_tools_help(_data, _obj):
+    page = _help_page("tools.html")
+    if page.exists():
+        _open_local(page)
+    else:
+        _notify("工具与网格说明", "找不到工具说明页面：\n%s" % page)
+
+
+def line_thickness(_data, obj):
+    glyphs, _f, _single = _selected_glyphs(obj)
+    if not glyphs:
+        _notify(
+            "FFpro 线条粗细",
+            "请先在字体窗口或字形窗口选择一个或多个字形。\n"
+            "这个命令会加粗用钢笔/曲线工具画出的开放路径。",
+        )
+        return
+
+    answer = fontforge.askString(
+        "线条粗细 / Line Thickness",
+        "输入笔触宽度（字体单位，例如 20–80）：\n"
+        "Enter the stroke width in font units (for example 20–80):",
+        "40",
+    )
+    if answer is None:
+        return
+    try:
+        width = float(answer.strip().replace(",", "."))
+    except Exception:
+        _notify("线条粗细", "宽度必须是数字：%s" % answer)
+        return
+    if width <= 0 or width > 1000:
+        _notify("线条粗细", "宽度需要在 1–1000 之间（当前 %s）。" % answer)
+        return
+
+    applied = []
+    skipped = []
+    failed = []
+    for g in glyphs:
+        try:
+            contours = list(g.foreground)
+            if not contours or any(c.closed for c in contours):
+                skipped.append(g.glyphname)
+                continue
+            g.stroke("circular", width, "round", "round", ())
+            applied.append(g.glyphname)
+        except Exception as exc:
+            failed.append("%s: %s" % (g.glyphname, exc))
+
+    parts = []
+    if applied:
+        parts.append("已加粗 %d 个字形：%s" % (len(applied), "、".join(applied[:8])))
+    if skipped:
+        parts.append(
+            "跳过 %d 个已闭合或空字形（线条粗细只处理开放路径）：%s"
+            % (len(skipped), "、".join(skipped[:8]))
+        )
+    if failed:
+        parts.append("失败 %d 个：%s" % (len(failed), "；".join(failed[:4])))
+    if not parts:
+        parts.append("没有可以处理的字形。")
+    parts.append("\n提示：双击工具栏里的自由绘制工具，可以在绘制前设置笔触粗细。")
+    _notify("FFpro 线条粗细", "\n\n".join(parts))
 
 
 def open_manual(_data, _obj):
@@ -768,11 +860,16 @@ def fontforge_plugin_init(**_kwargs):
             "zh": "字体体检", "en": "Font Audit", "fr": "Audit de police",
             "ru": "Проверка шрифта", "es": "Auditoría de fuente", "ar": "فحص الخط",
         }, "FFpro_FontAudit")
-        _add(open_font_preview, ("Font", "Glyph"), {
-            "zh": "字体预览…", "en": "Font Preview...",
-            "fr": "Aperçu de la police...", "ru": "Предпросмотр шрифта...",
-            "es": "Vista previa de fuente...", "ar": "معاينة الخط...",
+        _add(open_font_preview, "Font", {
+            "zh": "字体预览（多字号）…", "en": "Font Preview (Multi-size)...",
+            "fr": "Aperçu de la police (multi-tailles)...", "ru": "Предпросмотр шрифта (размеры)...",
+            "es": "Vista previa de fuente (tamaños)...", "ar": "معاينة الخط (أحجام)...",
         }, "FFpro_FontPreview")
+        _add(open_font_preview, "Glyph", {
+            "zh": "当前字形预览（多字号）…", "en": "Current Glyph Preview (Multi-size)...",
+            "fr": "Aperçu du glyphe (multi-tailles)...", "ru": "Предпросмотр глифа (размеры)...",
+            "es": "Vista previa del glifo (tamaños)...", "ar": "معاينة الحرف (أحجام)...",
+        }, "FFpro_GlyphPreview")
         _add(fill_basic_charset, "Font", {
             "zh": "补齐基本字符集", "en": "Add Basic Character Set",
             "fr": "Ajouter le jeu de base", "ru": "Добавить базовый набор",
@@ -791,6 +888,11 @@ def fontforge_plugin_init(**_kwargs):
             "fr": "Arrondir les angles...", "ru": "Скруглить углы...",
             "es": "Redondear esquinas...", "ar": "تدوير الزوايا...",
         }, "FFpro_RoundCorners")
+        _add(line_thickness, ("Font", "Glyph"), {
+            "zh": "线条粗细…", "en": "Line Thickness...",
+            "fr": "Épaisseur du trait...", "ru": "Толщина линии...",
+            "es": "Grosor de línea...", "ar": "سماكة الخط...",
+        }, "FFpro_LineThickness")
         _add(open_starter, "Font", {
             "zh": "打开模板字体", "en": "Open Starter Font",
             "fr": "Ouvrir la police modèle", "ru": "Открыть шаблон шрифта",
@@ -801,6 +903,11 @@ def fontforge_plugin_init(**_kwargs):
             "fr": "Guide de démarrage...", "ru": "Первые шаги...",
             "es": "Primeros pasos...", "ar": "دليل البداية...",
         }, "FFpro_Welcome")
+        _add(open_tools_help, ("Font", "Glyph"), {
+            "zh": "工具与网格说明", "en": "Tools and Grid Guide",
+            "fr": "Guide des outils et de la grille", "ru": "Инструменты и сетка",
+            "es": "Guía de herramientas y cuadrícula", "ar": "دليل الأدوات والشبكة",
+        }, "FFpro_ToolsHelp")
         _add(open_manual, ("Font", "Glyph"), {
             "zh": "FFpro 中文教程", "en": "FFpro Manual", "fr": "Manuel FFpro",
             "ru": "Руководство FFpro", "es": "Manual de FFpro", "ar": "دليل FFpro",

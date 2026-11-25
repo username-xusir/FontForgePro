@@ -8,7 +8,7 @@ $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Dist = Join-Path $Root "dist\FontForgePro"
 $App = Join-Path $Dist "app"
 $Release = Join-Path $Root "release"
-$Version = "2.3.0"
+$Version = "2.4.0"
 $Csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
 Write-Host "FontForgePro build $Version"
@@ -83,8 +83,8 @@ if (-not (Test-Path $PySite)) {
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $PySite "ffpro_tools.py")
 Get-ChildItem -Path $PySite -Directory -Filter "ffpro_tools-*.dist-info" -ErrorAction SilentlyContinue |
     ForEach-Object { Remove-Item -Recurse -Force $_.FullName }
-$DistInfo = Join-Path $PySite "ffpro_tools-2.3.0.dist-info"
-Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.3.0.dist-info") $DistInfo
+$DistInfo = Join-Path $PySite "ffpro_tools-2.4.0.dist-info"
+Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.4.0.dist-info") $DistInfo
 
 Write-Host "Installing Arabic UI catalog ..."
 $ArLocale = Join-Path $App "share\locale\ar"
