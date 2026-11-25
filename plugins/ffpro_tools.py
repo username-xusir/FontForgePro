@@ -23,7 +23,7 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.1.0"
+PLUGIN_VERSION = "2.1.1"
 SUBMENU = ("FFpro 工具", "FFpro Tools", "FFpro_Tools")
 
 BASIC_CODEPOINTS = (

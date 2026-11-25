@@ -8,7 +8,7 @@ $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Dist = Join-Path $Root "dist\FontForgePro"
 $App = Join-Path $Dist "app"
 $Release = Join-Path $Root "release"
-$Version = "2.1.0"
+$Version = "2.1.1"
 $Csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
 Write-Host "FontForgePro build $Version"
@@ -63,11 +63,11 @@ if (-not (Test-Path $PySite)) {
     throw "Python site-packages not found: $PySite"
 }
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $PySite "ffpro_tools.py")
-$DistInfo = Join-Path $PySite "ffpro_tools-2.1.0.dist-info"
+$DistInfo = Join-Path $PySite "ffpro_tools-2.1.1.dist-info"
 if (Test-Path $DistInfo) {
     Remove-Item -Recurse -Force $DistInfo
 }
-Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.1.0.dist-info") $DistInfo
+Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.1.1.dist-info") $DistInfo
 
 Write-Host "Compiling launcher ..."
 $Icon = Join-Path $Root "resources\app.ico"
