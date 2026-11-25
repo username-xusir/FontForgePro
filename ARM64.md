@@ -51,5 +51,5 @@ needed to verify the emulation package and, later, a native ARM64 runtime.
 powershell -NoProfile -ExecutionPolicy Bypass -File build-arm64.ps1
 ```
 
-This creates `release\FontForgePro-v2.2.0-win-arm64.zip` from the x64 build and
+This creates `release\FontForgePro-v2.3.0-win-arm64.zip` from the x64 build and
 adds `README-ARM64.txt` explaining the emulation status.

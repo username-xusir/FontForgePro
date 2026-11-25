@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新手引导 · FontForgePro</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 24px 64px;
+    background: #0b0b0c; color: #f4f4f5;
+    font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  header { display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px; }
+  .logo { font: italic 64px Georgia, serif; line-height: .8; margin-right: 4px; }
+  h1 { margin: 0; font-size: 28px; letter-spacing: .5px; }
+  .sub { color: #9a9aa2; font-size: 14px; margin-top: 6px; }
+  .step {
+    border: 1px solid #26262a; border-radius: 14px;
+    background: #121214; padding: 22px 24px; margin: 16px 0;
+  }
+  .step h2 { margin: 0 0 8px; font-size: 19px; }
+  .kicker { color: #9ad88a; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+  p { margin: 8px 0; color: #d4d4d8; }
+  ul { margin: 8px 0 0; padding-left: 22px; color: #f4f4f5; }
+  li { margin: 6px 0; }
+  code { background: #1c1c20; border: 1px solid #2f2f35; border-radius: 5px; padding: 1px 6px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  a.button {
+    display: inline-block; text-decoration: none; color: #0b0b0c;
+    background: #ffffff; border-radius: 999px; padding: 10px 22px;
+    font-weight: 700; font-size: 14px;
+  }
+  a.ghost { color: #f4f4f5; background: transparent; border: 1px solid #3a3a40; }
+  footer { margin-top: 32px; color: #7e7e86; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">f</div>
+    <div>
+      <h1>欢迎使用 FontForgePro</h1>
+      <div class="sub">原生 FontForge 字体设计工作台 · 2.3.0</div>
+    </div>
+  </header>
+
+  <div class="step">
+    <div class="kicker">01 · 欢迎</div>
+    <h2>专业内核，常用工具集中在 FFpro</h2>
+    <p>FontForgePro 使用原生 FontForge 20251009 内核，轮廓、位图、OpenType、变体、脚本等专业功能全部保留。FFpro 工具把字体体检、预览、清理、模板等日常操作整理到同一个菜单。</p>
+    <ul>
+      <li>设置独立保存在 <code>%APPDATA%\FontForgePro</code>，不会影响系统里的 FontForge。</li>
+      <li>首次启动会建立自己的配置目录，可以随时从「工具 → FFpro 工具 → 新手引导」重新打开本页。</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="kicker">02 · 界面</div>
+    <h2>字体窗口与字形窗口</h2>
+    <p>字体窗口显示所有字符槽位；双击任意字形进入字形窗口。空白格只是未使用的编码槽位，不是错误。</p>
+    <ul>
+      <li>字体窗口：总览、排序、生成字体。</li>
+      <li>字形窗口：轮廓、控制点、锚点、图层。</li>
+      <li>按 <code>`</code> 进入预览模式，滚轮缩放；左键拖点，右键加点，Shift 多选。</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="kicker">03 · 流程</div>
+    <h2>做第一个字体</h2>
+    <p>新建 → 编辑字形 → 字体体检 → 字体预览 → 生成字体。第一次可以直接用模板字体练手。</p>
+    <ul>
+      <li>文件 → 新建，或「FFpro 工具 → 打开模板字体」。</li>
+      <li>文件 → 生成字体，导出 TTF / OTF / WOFF2。</li>
+      <li>字体预览页里的文字会自动保存，下次打开自动恢复。</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="kicker">04 · 工具</div>
+    <h2>FFpro 工具与帮助</h2>
+    <p>工具 → FFpro 工具里有字体体检、字体预览、补齐基本字符集、字形清理、水平居中、圆角拐点、模板、中文教程、离线 FontForge 官方手册、界面语言和关于。</p>
+    <ul>
+      <li>界面语言自动跟随 Windows，也可以手动切换，重启后生效。</li>
+      <li>离线官方手册约 700 页，支持本地搜索。</li>
+      <li>界面字体和控件已按系统 DPI 放大，低分辨率屏幕也能看清。</li>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <a class="button" href="index.html">打开 FFpro 中文教程</a>
+    <a class="button ghost" href="official.html">FontForge 官方手册</a>
+    <a class="button ghost" href="about.html">关于 FontForgePro</a>
+  </div>
+
+  <footer>FontForgePro 2.3.0 · GPL-3.0 · 基于 FontForge 20251009</footer>
+</div>
+</body>
+</html>

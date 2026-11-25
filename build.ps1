@@ -8,7 +8,7 @@ $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Dist = Join-Path $Root "dist\FontForgePro"
 $App = Join-Path $Dist "app"
 $Release = Join-Path $Root "release"
-$Version = "2.2.0"
+$Version = "2.3.0"
 $Csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
 Write-Host "FontForgePro build $Version"
@@ -41,8 +41,24 @@ if (-not $SkipAppCopy) {
     }
 }
 
+Write-Host "Enabling high-DPI support in FontForge ..."
+$PatchManifest = Join-Path $Root "src\patch-manifest.ps1"
+$Manifest = Join-Path $Root "src\fontforge.manifest"
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $PatchManifest -Path (Join-Path $App "bin\fontforge.exe") -ManifestPath $Manifest
+if ($LASTEXITCODE -ne 0) {
+    throw "Manifest patch failed with exit code $LASTEXITCODE"
+}
+
+Write-Host "Installing bundled UI font ..."
+$FontDir = Join-Path $App "share\fonts"
+New-Item -ItemType Directory -Force -Path $FontDir | Out-Null
+Copy-Item -Force (Join-Path $Root "resources\fonts\NotoSansSC-Regular.ttf") (Join-Path $FontDir "NotoSansSC-Regular.ttf")
+
 New-Item -ItemType Directory -Force -Path $Dist | Out-Null
 New-Item -ItemType Directory -Force -Path $Release | Out-Null
+$LicenseDir = Join-Path $Dist "licenses"
+New-Item -ItemType Directory -Force -Path $LicenseDir | Out-Null
+Copy-Item -Force (Join-Path $Root "resources\fonts\OFL.txt") (Join-Path $LicenseDir "NotoSansSC-OFL.txt")
 New-Item -ItemType Directory -Force -Path (Join-Path $Dist "resources") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $Dist "templates") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $Dist "help") | Out-Null
@@ -65,11 +81,11 @@ if (-not (Test-Path $PySite)) {
     throw "Python site-packages not found: $PySite"
 }
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $PySite "ffpro_tools.py")
-$DistInfo = Join-Path $PySite "ffpro_tools-2.2.0.dist-info"
+$DistInfo = Join-Path $PySite "ffpro_tools-2.3.0.dist-info"
 if (Test-Path $DistInfo) {
     Remove-Item -Recurse -Force $DistInfo
 }
-Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.2.0.dist-info") $DistInfo
+Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.3.0.dist-info") $DistInfo
 
 Write-Host "Installing Arabic UI catalog ..."
 $ArLocale = Join-Path $App "share\locale\ar"
@@ -82,8 +98,9 @@ Copy-Item -Recurse -Force (Join-Path $Root "resources\locale\ar\*") $ArLocale
 Write-Host "Compiling launcher ..."
 $Icon = Join-Path $Root "resources\app.ico"
 $Launcher = Join-Path $Root "src\Launcher.cs"
+$Welcome = Join-Path $Root "src\WelcomeForm.cs"
 $OutExe = Join-Path $Dist "FontForgePro.exe"
-& $Csc /nologo /target:winexe /platform:anycpu /optimize+ /win32icon:$Icon /out:$OutExe $Launcher
+& $Csc /nologo /target:winexe /platform:anycpu /optimize+ /codepage:65001 /win32icon:$Icon /out:$OutExe $Launcher $Welcome
 if ($LASTEXITCODE -ne 0) {
     throw "csc failed with exit code $LASTEXITCODE"
 }
@@ -102,6 +119,7 @@ if (Test-Path $SourceDir) {
 New-Item -ItemType Directory -Force -Path $SourceDir | Out-Null
 Copy-Item -Recurse -Force (Join-Path $Root "src") (Join-Path $SourceDir "src")
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $SourceDir "ffpro_tools.py")
+Copy-Item -Force (Join-Path $Root "resources\fonts\OFL.txt") (Join-Path $SourceDir "NotoSansSC-OFL.txt")
 Copy-Item -Force (Join-Path $Root "resources\ffpro.resources") (Join-Path $SourceDir "ffpro.resources")
 Copy-Item -Force (Join-Path $Root "resources\ffpro-ar.resources") (Join-Path $SourceDir "ffpro-ar.resources")
 Copy-Item -Force (Join-Path $Root "resources\ffpro-splash.png") (Join-Path $SourceDir "ffpro-splash.png")

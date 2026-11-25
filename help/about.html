@@ -13,7 +13,7 @@
       <div class="brand-mark">f</div>
       <div>
         <div class="brand-title">FontForgePro</div>
-        <div class="brand-sub">关于 · v2.2.0</div>
+        <div class="brand-sub">关于 · v2.3.0</div>
       </div>
     </div>
     <nav class="nav">
@@ -47,7 +47,7 @@
       <h2>版本</h2>
       <table>
         <tbody>
-          <tr><th>FontForgePro</th><td>2.2.0</td></tr>
+          <tr><th>FontForgePro</th><td>2.3.0</td></tr>
           <tr><th>FontForge 内核</th><td>20251009（2025-10-09 构建）</td></tr>
           <tr><th>Python</th><td>3.12（随 FontForge 提供）</td></tr>
           <tr><th>平台</th><td>Windows 10 / 11 64 位</td></tr>
@@ -84,6 +84,14 @@
           <p>深色单色主题、圆角控件、FFpro 启动画面；布局仍是 FontForge 原生布局，功能不缩水。</p>
         </div>
         <div class="card">
+          <h3>新手引导</h3>
+          <p>第一次打开显示四步引导，可随时跳过；之后可从 FFpro 工具菜单重新打开。界面按系统 DPI 自动放大，菜单、对话框和字体窗口保持清晰。</p>
+        </div>
+        <div class="card">
+          <h3>中文字体兜底</h3>
+          <p>中文界面优先使用微软雅黑，系统没有中文字体时使用内置的 Noto Sans SC（SIL OFL 1.1），避免方框和乱码。</p>
+        </div>
+        <div class="card">
           <h3>Windows ARM64</h3>
           <p>提供 ARM64 兼容包，通过 Windows 11 x64 仿真运行；原生 ARM64 需等待上游 FontForge 的 ARM64 构建。</p>
         </div>
@@ -113,6 +121,7 @@
       <ul>
         <li><strong>FontForge 20251009</strong> — 字体编辑内核，GPL-3.0 / BSD。源码：<a href="https://github.com/fontforge/fontforge" target="_blank" rel="noreferrer">github.com/fontforge/fontforge</a></li>
         <li><strong>FontForge Windows Builds</strong> — Windows 构建与 GTK/Python 运行时。源码与构建脚本：<a href="https://github.com/fontforge/fontforgebuilds" target="_blank" rel="noreferrer">github.com/fontforge/fontforgebuilds</a></li>
+        <li><strong>Noto Sans SC</strong> — 内置中文界面兜底字体，SIL Open Font License 1.1。来源：<a href="https://github.com/notofonts/noto-cjk" target="_blank" rel="noreferrer">github.com/notofonts/noto-cjk</a></li>
         <li><strong>GTK / GLib / Pango / Cairo</strong> — LGPL 等自由软件许可。</li>
         <li><strong>Microsoft YaHei UI</strong> — Windows 系统字体，仅作为界面字体引用，不随应用分发。</li>
       </ul>
@@ -120,7 +129,7 @@
     </section>
 
     <footer class="footer">
-      FontForgePro v2.2.0 · 基于 FontForge 20251009 · GPL-3.0<br>
+      FontForgePro v2.3.0 · 基于 FontForge 20251009 · GPL-3.0<br>
       <a href="index.html">本地教程</a>
     </footer>
   </main>

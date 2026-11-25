@@ -13,7 +13,7 @@
       <div class="brand-mark">f</div>
       <div>
         <div class="brand-title">FontForgePro</div>
-        <div class="brand-sub">本地教程 · v2.2.0</div>
+        <div class="brand-sub">本地教程 · v2.3.0</div>
       </div>
     </div>
     <div class="nav-label">开始</div>
@@ -30,6 +30,7 @@
       <a href="#export">导出与验证</a>
       <a href="#shortcuts">快捷键</a>
       <a href="#language">界面语言</a>
+      <a href="#onboarding">新手引导</a>
       <a href="#faq">常见问题</a>
       <a href="#license">许可与来源</a>
       <a href="official.html">FontForge 官方手册</a>
@@ -332,6 +333,18 @@
       </div>
     </section>
 
+    <section class="section" id="onboarding">
+      <h2>新手引导与界面大小</h2>
+      <p>第一次打开 FontForgePro 会显示四步新手引导：欢迎、界面、第一个字体、FFpro 工具。每一步都有“跳过”，右上角关闭也会直接进入应用；之后可以从 <strong>工具 → FFpro 工具 → 新手引导…</strong> 重新打开。</p>
+      <h3>界面会自动放大</h3>
+      <p>启动器会读取 Windows 的显示缩放比例（DPI），把字号、菜单、对话框和字体窗口按比例放大；FontForge 内核声明了 DPI 感知，所以文字不会再被 Windows 拉伸成模糊的位图。大屏上菜单和按钮保持清晰，小屏上字体窗口会使用更少、更大的字符格，而不是铺满一屏看不清的小格子。</p>
+      <h3>全屏时空白格太多？</h3>
+      <p>字体窗口默认使用当前屏幕合适的列数/行数。最大化后 FontForge 会按窗口宽度重新排列字符格，空白格是字体里尚未使用的编码槽位，不是渲染错误。可以用 <strong>视图 → 32x8 / 16x4 / 8x2 格窗口</strong> 调整一次显示多少个字符，或按 <kbd>`</kbd> 进入预览模式查看实际排版效果。</p>
+      <div class="note">
+        <p>中文界面优先使用微软雅黑；系统没有中文字体时使用安装包内置的 Noto Sans SC。阿拉伯语使用 Segoe UI，并保留部分翻译和从左到右的布局。</p>
+      </div>
+    </section>
+
     <section class="section" id="faq">
       <h2>常见问题</h2>
       <h3>为什么界面里有方框或乱码？</h3>
@@ -368,7 +381,7 @@
     </section>
 
     <footer class="footer">
-      FontForgePro v2.2.0 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网<br>
+      FontForgePro v2.3.0 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网<br>
       <a href="official.html">FontForge 官方手册（离线镜像）</a>
     </footer>
   </main>

@@ -63,6 +63,17 @@ FontForgePro references the Windows system font "Microsoft YaHei UI" for its
 user interface. The font is not redistributed with FontForgePro; it is used
 from the operating system installation.
 
+## Noto Sans SC
+
+- Copyright: The Noto Project Authors
+- License: SIL Open Font License 1.1
+- File: `app/share/fonts/NotoSansSC-Regular.ttf`
+- License text: `licenses/NotoSansSC-OFL.txt`
+- Source: <https://github.com/notofonts/noto-cjk>
+
+The font is bundled as a fallback UI font so Chinese labels render on Windows
+installations that do not include Microsoft YaHei UI.
+
 ## FFpro tools and documentation
 
 - Copyright: FontForgePro contributors

@@ -1,4 +1,4 @@
-# FontForgePro (FFpro) 2.2.0
+# FontForgePro (FFpro) 2.3.0
 
 A Windows font editor built on the **native FontForge 20251009** application.
 FontForgePro keeps all of FontForge's professional features and adds a dark
@@ -63,6 +63,7 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 | 水平居中 / Center Glyphs | Centers outlines inside the advance width |
 | 圆角拐点 / Round Corners | Rounds sharp line-to-line corners to a chosen radius |
 | 打开模板字体 / Open Starter Font | Opens a copy of the FFpro Starter template |
+| 新手引导… / Getting Started... | Opens the first-run guide again |
 | FFpro 中文教程 / FFpro Manual | Opens the bundled Chinese tutorial |
 | FontForge 官方手册 / FontForge Manual | Opens the offline mirror of the official FontForge documentation |
 | 界面语言… / Interface Language... | Switches the UI language; writes `%APPDATA%\FontForgePro\language.txt` and applies after restart |
@@ -74,8 +75,18 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
   dialogs
 - Modern rounded controls, custom FFpro splash screen, and a consistent
   black/white palette
-- CJK/Arabic-capable UI font fallback (Microsoft YaHei UI, Segoe UI, Yu Gothic
-  UI, Malgun Gothic)
+- **First-run guide** with Skip / Back / Next / Start buttons; reopen it from
+  **Tools → FFpro Tools → Getting Started...**. The guide is localized for
+  Chinese (Simplified/Traditional), English, French, Russian, and Spanish.
+- **High-DPI aware UI**: the bundled FontForge binary declares DPI awareness and
+  the launcher writes a resource with the monitor DPI, so menus, dialogs, and
+  controls stay crisp instead of being bitmap-scaled by Windows. The base UI
+  font is 13 pt, and the default font-view window is sized from the screen so
+  low-resolution displays get fewer, larger cells instead of a wall of tiny
+  slots.
+- Bundled **Noto Sans SC** UI font (SIL OFL 1.1) used after Microsoft YaHei UI,
+  so Chinese labels render on Windows installations without Chinese fonts;
+  Segoe UI remains the Arabic fallback.
 - Font preview: temporary WOFF2 export opened in a local page with editable text,
   eight sizes (12–144 px), paragraph specimen, and light/dark modes. Preview
   text auto-saves in the browser and has a one-click "保存文字" button — no
@@ -151,8 +162,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.2.0-win64.zip` — release archive
-- `release\FontForgePro-v2.2.0-win64.zip.sha256`
+- `release\FontForgePro-v2.3.0-win64.zip` — release archive
+- `release\FontForgePro-v2.3.0-win64.zip.sha256`
 
 Install for the current user:
 
@@ -170,13 +181,16 @@ ARM64 (Windows 11 x64 emulation package):
 powershell -NoProfile -ExecutionPolicy Bypass -File build-arm64.ps1
 ```
 
-The result is `release\FontForgePro-v2.2.0-win-arm64.zip`. See
+The result is `release\FontForgePro-v2.3.0-win-arm64.zip`. See
 [ARM64.md](ARM64.md) for the native ARM64 build path.
 
 ## Project layout
 
 ```
-src/Launcher.cs              Windows launcher: profile, locale, branding, icons
+src/Launcher.cs              Windows launcher: profile, locale, DPI, branding, icons
+src/WelcomeForm.cs           First-run guide / onboarding wizard
+src/fontforge.manifest       DPI-awareness manifest patched into the kernel
+src/patch-manifest.ps1       Replaces the embedded RT_MANIFEST resource
 src/make_resources.py        Generates the FontForge appearance resource
 src/build_ar_catalog.py      Builds the partial Arabic UI catalog
 plugins/ffpro_tools.py       FFpro FontForge plugin
@@ -184,7 +198,9 @@ plugins/*.dist-info/         Entry-point metadata that lets FontForge discover i
 resources/ffpro.resources    Dark modern theme (rounded controls, splash)
 resources/ffpro-ar.resources  Arabic variant using Segoe UI
 resources/ffpro-splash.png   Custom splash image
+resources/fonts/             Bundled Noto Sans SC UI font + OFL license
 resources/locale/ar/         Partial Arabic gettext catalog
+help/welcome.html            Onboarding guide (reopenable from the menu)
 templates/FFpro-Starter.sfd  Starter font with basic character slots
 help/                        Offline Chinese manual, preview template, official docs hub
 help/fontforge-docs/        Mirrored official FontForge 20251009 documentation
@@ -208,7 +224,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.2.0 is a
+It remains available from the repository's release history. Version 2.3.0 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 

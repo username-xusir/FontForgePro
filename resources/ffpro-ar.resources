@@ -1,4 +1,4 @@
-fontforge.View.DefaultFont: 11pt Segoe UI,Microsoft YaHei UI,Tahoma
+fontforge.View.DefaultFont: 13pt Segoe UI,Noto Sans SC,Tahoma
 fontforge.View.LabelFont: ^View.DefaultFont Deja Vu Sans,Calibri,unifont,unifont upper
 fontforge.View.MonoFont: ^View.DefaultFont monospace,unifont
 fontforge.View.SerifFont: ^View.DefaultFont serif
@@ -6,12 +6,12 @@ fontforge.View.Background: #0b0b0c
 
 fontforge.FontView.GlyphFGColor: #f4f4f5
 fontforge.FontView.GlyphInfoColor: #f4f4f5
-fontforge.FontView.SlotOutlineColor: #26262a
-fontforge.FontView.SlotDivisionColor: #26262a
+fontforge.FontView.SlotOutlineColor: #1e1e22
+fontforge.FontView.SlotDivisionColor: #1e1e22
 fontforge.FontView.LabelColor: #d4d4d8
 fontforge.FontView.UnencodedLabelColor: #8a8a92
 fontforge.FontView.MissingLabelColor: #ff7b72
-fontforge.FontView.EmptySlotFgColor: #1c1c20
+fontforge.FontView.EmptySlotFgColor: #17171a
 fontforge.FontView.SelectedColor: #ffffff
 fontforge.FontView.SelectedFgColor: #000000
 fontforge.FontView.ChangedColor: #ffffff
@@ -23,7 +23,7 @@ fontforge.FontView.MetricsAdvanceToColor: #9ad88a
 fontforge.FontView.MetricsBaselineColor: #79c0ff
 fontforge.FontView.MetricsGlyphContourColor: #c8a27a
 fontforge.FontView.MetricsOriginColor: #ff8a8a
-fontforge.FontView.Font: 55% ^View.LabelFont
+fontforge.FontView.Font: 78% ^View.LabelFont
 
 fontforge.CharView.PointColor: #ff7b72
 fontforge.CharView.FirstPointColor: #e3b341
@@ -107,7 +107,7 @@ fontforge.CharView.Button3DEdgeLightColor: #3a3a40
 fontforge.CharView.Button3DEdgeDarkColor: #0b0b0c
 fontforge.CharView.Button3d: True
 fontforge.CharView.LayersPalette.Font: 64% ^View.DefaultFont
-fontforge.CharView.ToolsPalette.Font: 10px ^View.DefaultFont
+fontforge.CharView.ToolsPalette.Font: 90% ^View.DefaultFont
 
 fontforge.BitmapView.BitmapColor: #808080
 fontforge.BitmapView.OverviewColor: #000000
@@ -183,7 +183,7 @@ Gdraw.TwoButtonFixup: True
 Gdraw.MacOSXCmd: False
 Gdraw.Synchronize: False
 
-Gdraw.GGadget.Popup.Font: 67% ^View.DefaultFont
+Gdraw.GGadget.Popup.Font: 85% ^View.DefaultFont
 Gdraw.GGadget.Popup.Foreground: #f4f4f5
 Gdraw.GGadget.Popup.Background: #1c1c20
 Gdraw.GGadget.Popup.Delay: 1000

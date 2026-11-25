@@ -15,8 +15,8 @@ using System.Windows.Forms;
 [assembly: AssemblyProduct("FontForgePro")]
 [assembly: AssemblyCompany("FontForgePro")]
 [assembly: AssemblyCopyright("GPL-3.0-or-later")]
-[assembly: AssemblyVersion("2.2.0.0")]
-[assembly: AssemblyFileVersion("2.2.0.0")]
+[assembly: AssemblyVersion("2.3.0.0")]
+[assembly: AssemblyFileVersion("2.3.0.0")]
 
 namespace FontForgePro
 {
@@ -33,6 +33,7 @@ namespace FontForgePro
         [STAThread]
         private static void Main(string[] args)
         {
+            EnableDpiAwareness();
             try
             {
                 Run(args);
@@ -63,12 +64,54 @@ namespace FontForgePro
                 return;
             }
 
-            string appData = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "FontForgePro");
+            bool welcomeOnly = false;
+            bool noWelcome = false;
+            var fontArgs = new List<string>();
+            foreach (string arg in args)
+            {
+                if (arg.Equals("--welcome", StringComparison.OrdinalIgnoreCase))
+                {
+                    welcomeOnly = true;
+                }
+                else if (arg.Equals("--no-welcome", StringComparison.OrdinalIgnoreCase))
+                {
+                    noWelcome = true;
+                }
+                else
+                {
+                    fontArgs.Add(arg);
+                }
+            }
+
+            string appData = Environment.GetEnvironmentVariable("FFPRO_APPDATA");
+            if (string.IsNullOrWhiteSpace(appData))
+            {
+                appData = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "FontForgePro");
+            }
+            appData = Path.GetFullPath(appData.Trim().Trim('"'));
             string locale = GetLocale(appData);
 
-            PrepareProfile(appDir, appData, locale);
+            if (welcomeOnly)
+            {
+                ShowWelcome(locale, appData, true);
+                return;
+            }
+
+            bool firstRun = !File.Exists(OnboardingMarker(appData));
+            if (noWelcome)
+            {
+                MarkOnboardingDone(appData);
+            }
+            else if (firstRun && fontArgs.Count == 0)
+            {
+                ShowWelcome(locale, appData, false);
+            }
+
+            int dpi = GetSystemDpi();
+            Rectangle screen = Screen.PrimaryScreen.Bounds;
+            PrepareProfile(appDir, appData, locale, dpi, screen);
 
             _iconSmall = LoadIcon(16);
             _iconBig = LoadIcon(32);
@@ -78,7 +121,7 @@ namespace FontForgePro
             startInfo.WorkingDirectory = appDir;
             startInfo.UseShellExecute = false;
             startInfo.CreateNoWindow = true;
-            startInfo.Arguments = BuildArguments(args);
+            startInfo.Arguments = BuildArguments(fontArgs.ToArray());
 
             SetEnvironment(startInfo, appData, locale);
 
@@ -162,7 +205,7 @@ namespace FontForgePro
 
             env["APPDATA"] = appData;
             env["FFPRO_HOME"] = _home;
-            env["FFPRO_VERSION"] = "2.2.0";
+            env["FFPRO_VERSION"] = "2.3.0";
             env["PYTHONIOENCODING"] = "utf-8";
             env["PYTHONUTF8"] = "1";
             env["LANG"] = locale + ".UTF-8";
@@ -327,7 +370,9 @@ namespace FontForgePro
         private static void PrepareProfile(
             string appDir,
             string appData,
-            string locale)
+            string locale,
+            int dpi,
+            Rectangle screen)
         {
             string ffUser = Path.Combine(appData, "FontForge");
             string pluginDir = Path.Combine(ffUser, "plugin");
@@ -338,11 +383,37 @@ namespace FontForgePro
             Directory.CreateDirectory(gtkDir);
             Directory.CreateDirectory(Path.Combine(ffUser, "autosave"));
 
+            if (dpi < 96)
+            {
+                dpi = 96;
+            }
+
             string resourceName = locale.StartsWith("ar", StringComparison.OrdinalIgnoreCase)
                 ? "ffpro-ar.resources"
                 : "ffpro.resources";
-            string resourcePath = Path.Combine(_home, "resources", resourceName)
-                .Replace('\\', '/');
+            string resourceTemplate = Path.Combine(_home, "resources", resourceName);
+            string resourcePath = resourceTemplate.Replace('\\', '/');
+            try
+            {
+                string text = File.ReadAllText(resourceTemplate, Encoding.UTF8);
+                text = text.Replace(
+                    "Gdraw.ScreenResolution: 0",
+                    "Gdraw.ScreenResolution: " + dpi.ToString(CultureInfo.InvariantCulture));
+                string activeName = resourceName.Replace(".resources", "-active.resources");
+                string activePath = Path.Combine(appData, activeName);
+                File.WriteAllText(activePath, text, new UTF8Encoding(false));
+                resourcePath = activePath.Replace('\\', '/');
+            }
+            catch
+            {
+                // Keep the packaged resource if a writable copy cannot be made.
+            }
+
+            const int fvSize = 48;
+            int cols = (screen.Width - 120) / (fvSize + 8);
+            int rows = (screen.Height - 380) / (fvSize + 8);
+            cols = Math.Max(12, Math.Min(32, cols));
+            rows = Math.Max(4, Math.Min(10, rows));
 
             string prefsPath = Path.Combine(ffUser, "prefs");
             var prefs = new List<string>();
@@ -360,7 +431,10 @@ namespace FontForgePro
             SetPref(prefs, "ShowControlPointsAlways", "1");
             SetPref(prefs, "FreeTypeInFontView", "1");
             SetPref(prefs, "OpenCharsInNewWindow", "0");
-            SetPref(prefs, "SaveEditorState", "1");
+            SetPref(prefs, "SaveEditorState", "0");
+            SetPref(prefs, "DefaultFVSize", fvSize.ToString(CultureInfo.InvariantCulture));
+            SetPref(prefs, "DefaultFVRowCount", rows.ToString(CultureInfo.InvariantCulture));
+            SetPref(prefs, "DefaultFVColCount", cols.ToString(CultureInfo.InvariantCulture));
             SetPref(prefs, "AutoSaveFrequency", "5");
             File.WriteAllLines(prefsPath, prefs.ToArray(), new UTF8Encoding(false));
 
@@ -386,6 +460,109 @@ namespace FontForgePro
                 }
             }
             lines.Add(key + ":\t" + value);
+        }
+
+        private static string OnboardingMarker(string appData)
+        {
+            return Path.Combine(appData, "onboarding.txt");
+        }
+
+        private static void MarkOnboardingDone(string appData)
+        {
+            try
+            {
+                Directory.CreateDirectory(appData);
+                File.WriteAllText(
+                    OnboardingMarker(appData),
+                    "2.3.0",
+                    new UTF8Encoding(false));
+            }
+            catch
+            {
+                // The guide can be reopened from the FFpro menu.
+            }
+        }
+
+        private static void ShowWelcome(string locale, string appData, bool previewOnly)
+        {
+            try
+            {
+                using (var form = new WelcomeForm(locale, _home))
+                {
+                    form.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "无法打开新手引导：\n" + ex.Message,
+                    "FontForgePro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+
+            if (!previewOnly)
+            {
+                MarkOnboardingDone(appData);
+            }
+        }
+
+        private static void EnableDpiAwareness()
+        {
+            try
+            {
+                if (SetProcessDpiAwarenessContext(new IntPtr(-4)))
+                {
+                    return;
+                }
+            }
+            catch
+            {
+                // Older Windows versions do not have the per-monitor API.
+            }
+
+            try
+            {
+                SetProcessDPIAware();
+            }
+            catch
+            {
+                // 96 DPI remains a usable fallback.
+            }
+        }
+
+        private static int GetSystemDpi()
+        {
+            try
+            {
+                uint dpi = GetDpiForSystem();
+                if (dpi >= 72 && dpi <= 480)
+                {
+                    return (int)dpi;
+                }
+            }
+            catch
+            {
+                // GetDpiForSystem requires Windows 10 1607+.
+            }
+
+            try
+            {
+                using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    int dpi = (int)Math.Round(graphics.DpiX);
+                    if (dpi >= 72)
+                    {
+                        return dpi;
+                    }
+                }
+            }
+            catch
+            {
+                // Fall through.
+            }
+
+            return 96;
         }
 
         private static Icon LoadIcon(int size)
@@ -506,5 +683,14 @@ namespace FontForgePro
 
         [DllImport("dwmapi.dll")]
         private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attribute, ref int value, int size);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDpiAwarenessContext(IntPtr value);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
+        [DllImport("user32.dll")]
+        private static extern uint GetDpiForSystem();
     }
 }

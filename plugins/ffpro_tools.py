@@ -16,6 +16,7 @@ import math
 import os
 import pathlib
 import shutil
+import subprocess
 import tempfile
 import time
 import webbrowser
@@ -23,7 +24,7 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.2.0"
+PLUGIN_VERSION = "2.3.0"
 
 SUBMENU_LABELS = {
     "zh": "FFpro 工具",
@@ -622,6 +623,21 @@ def open_font_preview(_data, obj):
 # Local manual / about / starter
 
 
+def open_welcome(_data, _obj):
+    exe = _home() / "FontForgePro.exe"
+    if exe.exists():
+        try:
+            subprocess.Popen([str(exe), "--welcome"], cwd=str(_home()))
+            return
+        except Exception:
+            pass
+    page = _help_page("welcome.html")
+    if page.exists():
+        _open_local(page)
+    else:
+        _notify("新手引导", "找不到新手引导页面。")
+
+
 def open_manual(_data, _obj):
     page = _help_page("index.html")
     if page.exists():
@@ -780,6 +796,11 @@ def fontforge_plugin_init(**_kwargs):
             "fr": "Ouvrir la police modèle", "ru": "Открыть шаблон шрифта",
             "es": "Abrir fuente de inicio", "ar": "فتح الخط النموذجي",
         }, "FFpro_OpenStarter")
+        _add(open_welcome, ("Font", "Glyph"), {
+            "zh": "新手引导…", "en": "Getting Started...",
+            "fr": "Guide de démarrage...", "ru": "Первые шаги...",
+            "es": "Primeros pasos...", "ar": "دليل البداية...",
+        }, "FFpro_Welcome")
         _add(open_manual, ("Font", "Glyph"), {
             "zh": "FFpro 中文教程", "en": "FFpro Manual", "fr": "Manuel FFpro",
             "ru": "Руководство FFpro", "es": "Manual de FFpro", "ar": "دليل FFpro",
