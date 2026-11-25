@@ -61,7 +61,7 @@ Get-ChildItem -Recurse -File $InstallDir | ForEach-Object { $SizeKb += [math]::C
 $UninstallKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\FontForgePro"
 New-Item -Path $UninstallKey -Force | Out-Null
 Set-ItemProperty -Path $UninstallKey -Name "DisplayName" -Value "FontForgePro"
-Set-ItemProperty -Path $UninstallKey -Name "DisplayVersion" -Value "2.0.0"
+Set-ItemProperty -Path $UninstallKey -Name "DisplayVersion" -Value "2.0.1"
 Set-ItemProperty -Path $UninstallKey -Name "Publisher" -Value "FontForgePro"
 Set-ItemProperty -Path $UninstallKey -Name "DisplayIcon" -Value "$IconLocation,0"
 Set-ItemProperty -Path $UninstallKey -Name "InstallLocation" -Value $InstallDir

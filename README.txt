@@ -1,4 +1,4 @@
-FontForgePro 2.0.0
+FontForgePro 2.0.1
 ==================
 
 一个以原生 FontForge 20251009 为内核的 Windows 字体设计应用。

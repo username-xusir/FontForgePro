@@ -15,8 +15,8 @@ using System.Windows.Forms;
 [assembly: AssemblyProduct("FontForgePro")]
 [assembly: AssemblyCompany("FontForgePro")]
 [assembly: AssemblyCopyright("GPL-3.0-or-later")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.0.1.0")]
+[assembly: AssemblyFileVersion("2.0.1.0")]
 
 namespace FontForgePro
 {
@@ -103,7 +103,6 @@ namespace FontForgePro
         private static string BuildArguments(string[] args)
         {
             var parts = new List<string>();
-            parts.Add("-nosplash");
             foreach (string arg in args)
             {
                 parts.Add(Quote(arg));
@@ -159,7 +158,7 @@ namespace FontForgePro
 
             env["APPDATA"] = appData;
             env["FFPRO_HOME"] = _home;
-            env["FFPRO_VERSION"] = "2.0.0";
+            env["FFPRO_VERSION"] = "2.0.1";
             env["PYTHONIOENCODING"] = "utf-8";
             env["PYTHONUTF8"] = "1";
             env["LANG"] = locale + ".UTF-8";
@@ -186,6 +185,16 @@ namespace FontForgePro
 
             // Windows uses zh-CN; gettext catalogs use zh_CN.
             name = name.Replace('-', '_');
+            if (name.StartsWith("zh_Hans", StringComparison.OrdinalIgnoreCase) ||
+                name.Equals("zh_SG", StringComparison.OrdinalIgnoreCase))
+            {
+                return "zh_CN";
+            }
+            if (name.StartsWith("zh_Hant", StringComparison.OrdinalIgnoreCase) ||
+                name.Equals("zh_HK", StringComparison.OrdinalIgnoreCase))
+            {
+                return "zh_TW";
+            }
             if (name.Length == 2)
             {
                 // Bare language codes are fine for gettext, but FontForge's

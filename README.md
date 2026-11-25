@@ -1,4 +1,4 @@
-# FontForgePro (FFpro) 2.0.0
+# FontForgePro (FFpro) 2.0.1
 
 A Windows font editor built on the **native FontForge 20251009** application.
 FontForgePro keeps all of FontForge's professional features and adds a dark
@@ -86,8 +86,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.0.0-win64.zip` — release archive
-- `release\FontForgePro-v2.0.0-win64.zip.sha256`
+- `release\FontForgePro-v2.0.1-win64.zip` — release archive
+- `release\FontForgePro-v2.0.1-win64.zip.sha256`
 
 Install for the current user:
 
@@ -125,7 +125,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.0.0 is a
+It remains available from the repository's release history. Version 2.0.1 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 
