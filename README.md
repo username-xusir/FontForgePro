@@ -1,4 +1,4 @@
-# FontForgePro (FFpro) 2.1.1
+# FontForgePro (FFpro) 2.1.2
 
 A Windows font editor built on the **native FontForge 20251009** application.
 FontForgePro keeps all of FontForge's professional features and adds a dark
@@ -63,7 +63,9 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 - UI language follows the Windows system language through FontForge's gettext catalogs
 - CJK-capable UI font fallback (Microsoft YaHei UI, Yu Gothic UI, Malgun Gothic)
 - Font preview: temporary WOFF2 export opened in a local page with editable text,
-  eight sizes (12–144 px), paragraph specimen, and light/dark modes
+  eight sizes (12–144 px), paragraph specimen, and light/dark modes. Preview
+  text auto-saves in the browser and has a one-click "保存文字" button — no
+  filename dialog.
 - Offline mirror of the official FontForge 20251009 documentation (about 700
   files, 9 MB) with a Chinese navigation hub and working local search
 - Separate settings directory (`%APPDATA%\FontForgePro`) so an existing
@@ -96,8 +98,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.1.1-win64.zip` — release archive
-- `release\FontForgePro-v2.1.1-win64.zip.sha256`
+- `release\FontForgePro-v2.1.2-win64.zip` — release archive
+- `release\FontForgePro-v2.1.2-win64.zip.sha256`
 
 Install for the current user:
 
@@ -137,7 +139,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.1.1 is a
+It remains available from the repository's release history. Version 2.1.2 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 
