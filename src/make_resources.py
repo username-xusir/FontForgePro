@@ -199,9 +199,29 @@ REPLACEMENTS = {
     "Gdraw.GTabSet.Box.BorderWidth": "1",
     "Gdraw.GTabSet.Box.Radius": "2",
     "Gdraw.GTabSet.CloseColor": "#ff7b72",
+    # Modern rounded controls
+    "Gdraw.GButton.Box.BorderShape": "roundrect",
+    "Gdraw.GButton.Box.Radius": "6",
+    "Gdraw.GButton.Box.Padding": "3",
+    "Gdraw.GDefaultButton.Box.BorderShape": "roundrect",
+    "Gdraw.GDefaultButton.Box.Radius": "6",
+    "Gdraw.GTextField.Box.BorderShape": "roundrect",
+    "Gdraw.GTextField.Box.Radius": "6",
+    "Gdraw.GTextField.Box.Padding": "3",
+    "Gdraw.GList.Box.BorderShape": "roundrect",
+    "Gdraw.GList.Box.Radius": "6",
+    "Gdraw.GMenu.Box.BorderShape": "roundrect",
+    "Gdraw.GMenu.Box.Radius": "6",
+    "Gdraw.GMenu.Box.Padding": "6",
+    "Gdraw.GComboBox.Box.BorderShape": "roundrect",
+    "Gdraw.GComboBox.Box.Radius": "6",
+    "Gdraw.GMenuBar.Box.Radius": "0",
+    "Gdraw.GGadget.LeftMargin": "10",
+    "Gdraw.GGadget.Skip": "8",
     # Splash
     "fontforge.Splash.Foreground": "#f4f4f5",
     "fontforge.Splash.Background": "#0b0b0c",
+    "fontforge.Splash.Image": "ffpro-splash.png",
 }
 
 

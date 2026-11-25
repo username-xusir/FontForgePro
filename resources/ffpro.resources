@@ -166,7 +166,7 @@ fontforge.Splash.Background: #0b0b0c
 fontforge.Splash.Font: 10pt ^View.DefaultFont
 fontforge.Splash.ItalicFont: italic ^Splash.Font
 fontforge.Splash.MonoFont: 10pt ^View.MonoFont
-fontforge.Splash.Image: splash2019.png
+fontforge.Splash.Image: ffpro-splash.png
 
 fontforge.SFTextArea.Box.ActiveInner: True
 fontforge.SFTextArea.Box.Padding: 1
@@ -221,10 +221,10 @@ Gdraw.GGadget.Box.Padding: 2
 Gdraw.GGadget.Box.Radius: 0
 Gdraw.GGadget.Font: 92% ^View.DefaultFont
 
-Gdraw.GGadget.Skip: 6
+Gdraw.GGadget.Skip: 8
 Gdraw.GGadget.LineSkip: 3
 Gdraw.GGadget.FirstLine: 6
-Gdraw.GGadget.LeftMargin: 8
+Gdraw.GGadget.LeftMargin: 10
 Gdraw.GGadget.TextImageSkip: 4
 Gdraw.GGadget.ImagePath: ~/.FontForge/tango-ct.theme:~/.FontForge/tango-ct.theme/tango:/Applications/FontForge.app/Contents/Resources/opt/local/share/fontforge/pixmaps/:=
 
@@ -258,8 +258,8 @@ Gdraw.GButton.Box.BorderInnerCol: #3a3a40
 Gdraw.GButton.Box.BorderOuterCol: #303036
 Gdraw.GButton.Box.BorderType: box
 Gdraw.GButton.Box.BorderShape: roundrect
-Gdraw.GButton.Box.Padding: 1
-Gdraw.GButton.Box.Radius: 3
+Gdraw.GButton.Box.Padding: 3
+Gdraw.GButton.Box.Radius: 6
 Gdraw.GButton.Font: 92% ^View.DefaultFont
 Gdraw.GButton.ShiftOnPress: False
 
@@ -340,8 +340,8 @@ Gdraw.GTextField.Box.BorderDarkest: #303036
 Gdraw.GTextField.Box.BorderInnerCol: #505058
 Gdraw.GTextField.Box.BorderType: lowered
 Gdraw.GTextField.Box.BorderShape: roundrect
-Gdraw.GTextField.Box.Padding: 2
-Gdraw.GTextField.Box.Radius: 3
+Gdraw.GTextField.Box.Padding: 3
+Gdraw.GTextField.Box.Radius: 6
 Gdraw.GTextField.Font: 83% ^View.MonoFont
 
 Gdraw.GComboBox.Box.BorderBrightest: #3a3a40
@@ -444,14 +444,14 @@ Gdraw.GMenuBar.Box.BorderInnerCol: #0b0b0c
 Gdraw.GMenuBar.Box.ActiveBorder: #ffffff
 Gdraw.GMenuBar.Box.BorderShape: rect
 Gdraw.GMenuBar.Box.BorderWidth: 1
-Gdraw.GMenuBar.Box.Radius: 2
+Gdraw.GMenuBar.Box.Radius: 0
 Gdraw.GMenuBar.Font: 92% ^View.DefaultFont
 
 Gdraw.GMenu.Box.BorderOuter: True
 Gdraw.GMenu.Box.NormalBackground: #17171a
 Gdraw.GMenu.Box.BorderOuterCol: #303036
-Gdraw.GMenu.Box.BorderShape: rect
-Gdraw.GMenu.Box.Padding: 3
+Gdraw.GMenu.Box.BorderShape: roundrect
+Gdraw.GMenu.Box.Padding: 6
 Gdraw.GMenu.Font: 92% ^View.DefaultFont
 Gdraw.GMenu.MacIcons: False
 Gdraw.GMenu.3DLook: True
@@ -495,3 +495,10 @@ Gdraw.GTabSet.CloseColor: #ff7b72
 
 # FFpro additions
 Gdraw.GCheckBox.Box.Font: 92% ^View.DefaultFont
+Gdraw.GComboBox.Box.BorderShape: roundrect
+Gdraw.GComboBox.Box.Radius: 6
+Gdraw.GDefaultButton.Box.BorderShape: roundrect
+Gdraw.GDefaultButton.Box.Radius: 6
+Gdraw.GList.Box.BorderShape: roundrect
+Gdraw.GList.Box.Radius: 6
+Gdraw.GMenu.Box.Radius: 6

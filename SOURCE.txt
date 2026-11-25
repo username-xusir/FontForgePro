@@ -1,15 +1,20 @@
-FontForgePro 2.1.2 — Corresponding Source
+FontForgePro 2.2.0 — Corresponding Source
 =========================================
 
 This package includes the source code for the FontForgePro-specific parts:
 
   source\
-    src\Launcher.cs              Windows launcher / branding source
+    src\Launcher.cs              Windows launcher / branding / locale source
     src\make_resources.py        Generates the FontForge appearance resource
+    src\build_ar_catalog.py      Builds the partial Arabic UI catalog
     ffpro_tools.py               FFpro Python plugin for FontForge
-    ffpro.resources              Generated FontForge appearance resource
+    ffpro.resources              Generated modern FontForge appearance resource
+    ffpro-ar.resources           Arabic variant using Segoe UI
+    ffpro-splash.png             FFpro splash image
+    locale\ar\LC_MESSAGES\FontForge.mo   Partial Arabic catalog
     FFpro-Starter.sfd            Starter font template
-    build.ps1, install.ps1, uninstall.ps1
+    build.ps1, build-arm64.ps1, install.ps1, uninstall.ps1
+    ARM64.md, README-ARM64.txt
     README.md
 
 The Chinese manual, preview template, and Chinese navigation for the official

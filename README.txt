@@ -1,4 +1,4 @@
-FontForgePro 2.1.2
+FontForgePro 2.2.0
 ==================
 
 一个以原生 FontForge 20251009 为内核的 Windows 字体设计应用。
@@ -24,7 +24,27 @@ FFpro 工具
   · 打开模板字体
   · FFpro 中文教程
   · FontForge 官方手册（离线）
+  · 界面语言（跟随系统 / 手动切换）
   · 关于 FontForgePro
+
+界面语言
+--------
+界面语言自动跟随 Windows 显示语言，支持：
+  中文（简体/繁體）、English、Français、Русский、Español、العربية
+以及 FontForge 的德文、意大利文、葡萄牙文、日文、韩文、波兰文等。
+Arabic 为部分翻译：菜单栏、常用菜单和按钮为阿拉伯语，其余回退英文。
+手动切换：工具 → FFpro 工具 → 界面语言…（重启后生效）。
+
+界面风格
+--------
+深色单色主题、圆角控件、FFpro 启动画面、现代菜单与对话框。
+阿拉伯语使用 Segoe UI 字体，中文使用微软雅黑。
+
+ARM64
+-----
+已提供 Windows ARM64 兼容包，但上游 FontForge 20251009 只有 x64 构建，
+所以在 ARM64 Windows 上通过系统 x64 仿真运行。原生 ARM64 需要先编译
+ARM64 的 FontForge/GTK/Python，详见 ARM64.md。
 
 预览文字保存
 ------------

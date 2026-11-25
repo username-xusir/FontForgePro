@@ -13,7 +13,7 @@
       <div class="brand-mark">f</div>
       <div>
         <div class="brand-title">FontForgePro</div>
-        <div class="brand-sub">本地教程 · v2.1.2</div>
+        <div class="brand-sub">本地教程 · v2.2.0</div>
       </div>
     </div>
     <div class="nav-label">开始</div>
@@ -29,6 +29,7 @@
       <a href="#preview">字体预览</a>
       <a href="#export">导出与验证</a>
       <a href="#shortcuts">快捷键</a>
+      <a href="#language">界面语言</a>
       <a href="#faq">常见问题</a>
       <a href="#license">许可与来源</a>
       <a href="official.html">FontForge 官方手册</a>
@@ -304,6 +305,33 @@
       </table>
     </section>
 
+    <section class="section" id="language">
+      <h2>界面语言</h2>
+      <p>FontForgePro 默认跟随 Windows 的显示语言，不需要自己设置。启动器会把系统语言转换成 FontForge 的 gettext locale，并在阿拉伯语时自动切换 Arabic 字体资源。</p>
+      <table>
+        <thead><tr><th>语言</th><th>支持程度</th></tr></thead>
+        <tbody>
+          <tr><td>中文（简体 / 繁體）</td><td>FontForge 完整中文界面</td></tr>
+          <tr><td>English</td><td>原生英文界面（回退语言）</td></tr>
+          <tr><td>Français</td><td>FontForge 完整法文界面</td></tr>
+          <tr><td>Русский</td><td>FontForge 完整俄文界面</td></tr>
+          <tr><td>Español</td><td>FontForge 完整西班牙文界面</td></tr>
+          <tr><td>العربية</td><td>部分阿拉伯语：菜单栏、常用菜单、常用按钮；其余回退英文</td></tr>
+        </tbody>
+      </table>
+      <p>FontForge 自带的德文、意大利文、葡萄牙文、日文、韩文、波兰文、土耳其文、乌克兰文、越南文、加泰罗尼亚文、希腊文、克罗地亚文、马拉雅拉姆文和格鲁吉亚文也会跟随系统语言。</p>
+      <h3>手动切换</h3>
+      <ol class="steps">
+        <li>打开 <strong>工具 → FFpro 工具 → 界面语言…</strong>。</li>
+        <li>选择语言（跟随系统 / 中文 / English / Français / Русский / Español / العربية）。</li>
+        <li>设置会写入 <code>%APPDATA%\FontForgePro\language.txt</code>。</li>
+        <li>重启 FontForgePro 后生效。</li>
+      </ol>
+      <div class="note">
+        <p>阿拉伯语没有上游 FontForge 官方翻译，FontForgePro 补了一份部分翻译；由于 FontForge 自绘 UI 不支持 RTL 镜像，菜单栏仍然是从左到右排列，但阿拉伯文字会正确连写。其余未翻译的阿拉伯语条目会显示英文。</p>
+      </div>
+    </section>
+
     <section class="section" id="faq">
       <h2>常见问题</h2>
       <h3>为什么界面里有方框或乱码？</h3>
@@ -321,7 +349,11 @@
       <h3>和原来的 FontForge 有什么区别？</h3>
       <p>内核、功能和文件格式完全一致；区别是品牌、中文 UI 字体、深色外观、FFpro 工具菜单、模板字体和这份本地教程。你可以随时用原版 FontForge 打开 FontForgePro 保存的 <code>.sfd</code>。</p>
       <h3>支持哪些系统？</h3>
-      <p>当前发布包是 Windows 64 位。FontForge 本身跨平台，macOS 和 Linux 用户可以自行编译，或使用原版 FontForge 加同一套插件。</p>
+      <p>主发布包是 Windows 10/11 64 位（x64）。另外提供 Windows 11 ARM64 兼容包，它通过系统的 x64 仿真运行，不是原生 ARM64；原生 ARM64 需要先编译 ARM64 的 FontForge/GTK/Python，详见 <code>ARM64.md</code>。FontForge 本身跨平台，macOS 和 Linux 用户可以自行编译，或使用原版 FontForge 加同一套插件。</p>
+      <h3>界面语言怎么切换？</h3>
+      <p>默认跟随 Windows 显示语言。手动切换用 <strong>工具 → FFpro 工具 → 界面语言…</strong>，保存后重启生效。支持中文、英文、法文、俄文、西班牙文、阿拉伯文（部分），以及 FontForge 自带的德文、意大利文、葡萄牙文、日文、韩文等。</p>
+      <h3>为什么界面和原版 FontForge 看起来不一样？</h3>
+      <p>FontForgePro 在原生 FontForge 上加了深色单色主题、圆角控件、FFpro 启动画面、品牌图标和菜单，但窗口布局仍然是 FontForge 的经典布局。这样既保留了全部功能，也让外观更接近现代设计工具。</p>
     </section>
 
     <section class="section" id="license">
@@ -336,7 +368,7 @@
     </section>
 
     <footer class="footer">
-      FontForgePro v2.1.2 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网<br>
+      FontForgePro v2.2.0 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网<br>
       <a href="official.html">FontForge 官方手册（离线镜像）</a>
     </footer>
   </main>

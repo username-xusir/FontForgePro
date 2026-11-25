@@ -15,8 +15,8 @@ using System.Windows.Forms;
 [assembly: AssemblyProduct("FontForgePro")]
 [assembly: AssemblyCompany("FontForgePro")]
 [assembly: AssemblyCopyright("GPL-3.0-or-later")]
-[assembly: AssemblyVersion("2.1.2.0")]
-[assembly: AssemblyFileVersion("2.1.2.0")]
+[assembly: AssemblyVersion("2.2.0.0")]
+[assembly: AssemblyFileVersion("2.2.0.0")]
 
 namespace FontForgePro
 {
@@ -63,7 +63,12 @@ namespace FontForgePro
                 return;
             }
 
-            PrepareProfile(appDir);
+            string appData = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "FontForgePro");
+            string locale = GetLocale(appData);
+
+            PrepareProfile(appDir, appData, locale);
 
             _iconSmall = LoadIcon(16);
             _iconBig = LoadIcon(32);
@@ -75,10 +80,7 @@ namespace FontForgePro
             startInfo.CreateNoWindow = true;
             startInfo.Arguments = BuildArguments(args);
 
-            string appData = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "FontForgePro");
-            SetEnvironment(startInfo, appData);
+            SetEnvironment(startInfo, appData, locale);
 
             using (Process process = Process.Start(startInfo))
             {
@@ -151,14 +153,16 @@ namespace FontForgePro
             return builder.ToString();
         }
 
-        private static void SetEnvironment(ProcessStartInfo startInfo, string appData)
+        private static void SetEnvironment(
+            ProcessStartInfo startInfo,
+            string appData,
+            string locale)
         {
             var env = startInfo.EnvironmentVariables;
-            string locale = GetPosixLocale();
 
             env["APPDATA"] = appData;
             env["FFPRO_HOME"] = _home;
-            env["FFPRO_VERSION"] = "2.1.2";
+            env["FFPRO_VERSION"] = "2.2.0";
             env["PYTHONIOENCODING"] = "utf-8";
             env["PYTHONUTF8"] = "1";
             env["LANG"] = locale + ".UTF-8";
@@ -166,60 +170,165 @@ namespace FontForgePro
             env["LANGUAGE"] = locale;
         }
 
-        private static string GetPosixLocale()
+        private static string GetLocale(string appData)
         {
-            string name;
+            string configured = Environment.GetEnvironmentVariable("FFPRO_LANG");
+            if (string.IsNullOrWhiteSpace(configured))
+            {
+                string path = Path.Combine(appData, "language.txt");
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        configured = File.ReadAllText(path, Encoding.UTF8).Trim();
+                    }
+                    catch
+                    {
+                        configured = null;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(configured) &&
+                !configured.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            {
+                return NormalizeLocale(configured);
+            }
+
+            string system;
             try
             {
-                name = CultureInfo.InstalledUICulture.Name;
+                system = CultureInfo.InstalledUICulture.Name;
             }
             catch
             {
-                name = CultureInfo.CurrentUICulture.Name;
+                system = CultureInfo.CurrentUICulture.Name;
             }
+            return NormalizeLocale(system);
+        }
 
-            if (string.IsNullOrEmpty(name))
+        private static string NormalizeLocale(string raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
             {
                 return "en_US";
             }
 
-            // Windows uses zh-CN; gettext catalogs use zh_CN.
-            name = name.Replace('-', '_');
-            if (name.StartsWith("zh_Hans", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("zh_SG", StringComparison.OrdinalIgnoreCase))
+            string name = raw.Trim().Replace('-', '_');
+            string lower = name.ToLowerInvariant();
+
+            if (lower == "zh" ||
+                lower.StartsWith("zh_hans") ||
+                lower.StartsWith("zh_sg"))
             {
                 return "zh_CN";
             }
-            if (name.StartsWith("zh_Hant", StringComparison.OrdinalIgnoreCase) ||
-                name.Equals("zh_HK", StringComparison.OrdinalIgnoreCase))
+            if (lower.StartsWith("zh_hant") ||
+                lower.StartsWith("zh_hk") ||
+                lower.StartsWith("zh_mo"))
             {
                 return "zh_TW";
             }
+            if (lower.StartsWith("ar"))
+            {
+                return "ar";
+            }
+            if (lower.StartsWith("fr"))
+            {
+                return "fr_FR";
+            }
+            if (lower.StartsWith("ru"))
+            {
+                return "ru_RU";
+            }
+            if (lower.StartsWith("es"))
+            {
+                return "es_ES";
+            }
+            if (lower.StartsWith("en"))
+            {
+                return "en_US";
+            }
+            if (lower.StartsWith("de"))
+            {
+                return "de_DE";
+            }
+            if (lower.StartsWith("it"))
+            {
+                return "it_IT";
+            }
+            if (lower.StartsWith("pt"))
+            {
+                return "pt_PT";
+            }
+            if (lower.StartsWith("ja"))
+            {
+                return "ja_JP";
+            }
+            if (lower.StartsWith("ko"))
+            {
+                return "ko_KR";
+            }
+            if (lower.StartsWith("uk"))
+            {
+                return "uk_UA";
+            }
+            if (lower.StartsWith("pl"))
+            {
+                return "pl_PL";
+            }
+            if (lower.StartsWith("tr"))
+            {
+                return "tr_TR";
+            }
+            if (lower.StartsWith("nl"))
+            {
+                return "nl_NL";
+            }
+            if (lower.StartsWith("sv"))
+            {
+                return "sv_SE";
+            }
+            if (lower.StartsWith("vi"))
+            {
+                return "vi_VN";
+            }
+            if (lower.StartsWith("th"))
+            {
+                return "th_TH";
+            }
+            if (lower.StartsWith("el"))
+            {
+                return "el_GR";
+            }
+            if (lower.StartsWith("hr"))
+            {
+                return "hr_HR";
+            }
+            if (lower.StartsWith("ca"))
+            {
+                return "ca_ES";
+            }
+            if (lower.StartsWith("ml"))
+            {
+                return "ml_IN";
+            }
+            if (lower.StartsWith("ka"))
+            {
+                return "ka_GE";
+            }
             if (name.Length == 2)
             {
-                // Bare language codes are fine for gettext, but FontForge's
-                // catalogs are mostly language_region.
-                if (name == "zh")
-                {
-                    return "zh_CN";
-                }
-                if (name == "ja")
-                {
-                    return "ja_JP";
-                }
-                if (name == "ko")
-                {
-                    return "ko_KR";
-                }
+                return name + "_" + name.ToUpperInvariant();
             }
             return name;
         }
 
-        private static void PrepareProfile(string appDir)
+        private static void PrepareProfile(
+            string appDir,
+            string appData,
+            string locale)
         {
-            string appData = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "FontForgePro");
             string ffUser = Path.Combine(appData, "FontForge");
             string pluginDir = Path.Combine(ffUser, "plugin");
             string pythonDir = Path.Combine(ffUser, "python");
@@ -229,7 +338,10 @@ namespace FontForgePro
             Directory.CreateDirectory(gtkDir);
             Directory.CreateDirectory(Path.Combine(ffUser, "autosave"));
 
-            string resourcePath = Path.Combine(_home, "resources", "ffpro.resources")
+            string resourceName = locale.StartsWith("ar", StringComparison.OrdinalIgnoreCase)
+                ? "ffpro-ar.resources"
+                : "ffpro.resources";
+            string resourcePath = Path.Combine(_home, "resources", resourceName)
                 .Replace('\\', '/');
 
             string prefsPath = Path.Combine(ffUser, "prefs");
@@ -242,7 +354,7 @@ namespace FontForgePro
             SetPref(prefs, "ResourceFile", resourcePath);
             SetPref(prefs, "UsePlugins", "1");
             SetPref(prefs, "PluginStartupMode", "On");
-            SetPref(prefs, "SplashScreen", "0");
+            SetPref(prefs, "SplashScreen", "1");
             SetPref(prefs, "UndoDepth", "200");
             SetPref(prefs, "SnapToInt", "1");
             SetPref(prefs, "ShowControlPointsAlways", "1");

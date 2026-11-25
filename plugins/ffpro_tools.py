@@ -23,8 +23,37 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.1.2"
-SUBMENU = ("FFpro 工具", "FFpro Tools", "FFpro_Tools")
+PLUGIN_VERSION = "2.2.0"
+
+SUBMENU_LABELS = {
+    "zh": "FFpro 工具",
+    "en": "FFpro Tools",
+    "fr": "Outils FFpro",
+    "ru": "Инструменты FFpro",
+    "es": "Herramientas FFpro",
+    "ar": "أدوات FFpro",
+}
+
+
+def _language() -> str:
+    env = (os.environ.get("LANGUAGE") or os.environ.get("LANG") or "").lower()
+    for code in ("ar", "zh", "fr", "ru", "es"):
+        if env.startswith(code):
+            return code
+    return "en"
+
+
+def _localized(labels: dict) -> str:
+    return labels.get(_language()) or labels.get("en") or ""
+
+
+def _msg(zh: str, en: str) -> str:
+    """Chinese for Chinese UI, English for every other language."""
+    return zh if _language() == "zh" else en
+
+
+def _submenu_name():
+    return (_localized(SUBMENU_LABELS), "FFpro Tools", "FFpro_Tools")
 
 BASIC_CODEPOINTS = (
     list(range(0x20, 0x7F))
@@ -133,14 +162,17 @@ def _glyph_targets(obj, title: str, question: str):
     glyphs, f, single = _selected_glyphs(obj)
     if single or glyphs:
         return glyphs, f, single
+    # fontforge.ask returns an index, not the button label.
+    yes = _msg("处理全部字形", "Process All Glyphs")
+    cancel = _msg("取消", "Cancel")
     answer = fontforge.ask(
         title,
         question,
-        ("处理全部字形", "取消"),
-        "处理全部字形",
-        "取消",
+        (yes, cancel),
+        0,
+        1,
     )
-    if answer != "处理全部字形":
+    if answer != 0:
         return [], f, single
     return list(f.glyphs()), f, single
 
@@ -149,7 +181,10 @@ def _all_targets(obj, title: str):
     glyphs, f, single = _glyph_targets(
         obj,
         title,
-        "当前没有选中字形。要对全部字形执行此操作吗？",
+        _msg(
+            "当前没有选中字形。要对全部字形执行此操作吗？",
+            "No glyphs are selected. Run this on all glyphs?",
+        ),
     )
     return glyphs, f, single
 
@@ -256,7 +291,7 @@ def fill_basic_charset(_data, obj):
 
 
 def clean_glyphs(_data, obj):
-    glyphs, f, _ = _all_targets(obj, "FFpro 字形清理")
+    glyphs, f, _ = _all_targets(obj, _msg("FFpro 字形清理", "FFpro Clean Glyphs"))
     if not glyphs:
         return
 
@@ -283,7 +318,7 @@ def clean_glyphs(_data, obj):
 
 
 def center_glyphs(_data, obj):
-    glyphs, f, _ = _all_targets(obj, "FFpro 水平居中")
+    glyphs, f, _ = _all_targets(obj, _msg("FFpro 水平居中", "FFpro Center Glyphs"))
     if not glyphs:
         return
 
@@ -439,25 +474,33 @@ def _rounded_contour(contour, radius):
 
 
 def round_corners(_data, obj):
+    title = _msg("FFpro 圆角拐点", "FFpro Round Corners")
     glyphs, f, _ = _glyph_targets(
         obj,
-        "FFpro 圆角拐点",
-        "当前没有选中字形。要对全部字形执行圆角吗？",
+        title,
+        _msg(
+            "当前没有选中字形。要对全部字形执行圆角吗？",
+            "No glyphs are selected. Round all glyphs?",
+        ),
     )
     if not glyphs:
         return
 
+    radius_options = ("20", "40", "80", "120", _msg("取消", "Cancel"))
     answer = fontforge.ask(
-        "FFpro 圆角拐点",
-        "选择圆角半径（字体单位，Em 通常为 1000）：",
-        ("20", "40", "80", "120", "取消"),
-        "40",
-        "取消",
+        title,
+        _msg(
+            "选择圆角半径（字体单位，Em 通常为 1000）：",
+            "Choose a corner radius in font units (Em is usually 1000):",
+        ),
+        radius_options,
+        1,
+        4,
     )
-    if not answer or answer == "取消":
+    if answer is None or answer == 4 or not (0 <= answer < 4):
         return
     try:
-        radius = float(answer)
+        radius = float(radius_options[answer])
     except Exception:
         return
 
@@ -638,15 +681,65 @@ def open_starter(_data, _obj):
 
 
 # ---------------------------------------------------------------------------
+# Interface language
+
+
+LANGUAGE_OPTIONS = [
+    ("auto", "跟随系统 / Auto", "Auto"),
+    ("zh_CN", "中文（简体）", "Chinese (Simplified)"),
+    ("zh_TW", "中文（繁體）", "Chinese (Traditional)"),
+    ("en_US", "English", "English"),
+    ("fr_FR", "Français", "French"),
+    ("ru_RU", "Русский", "Russian"),
+    ("es_ES", "Español", "Spanish"),
+    ("ar", "العربية", "Arabic"),
+]
+
+
+def choose_language(_data, _obj):
+    labels = [label for _code, label, _english in LANGUAGE_OPTIONS]
+    labels.append("取消 / Cancel")
+    answer = fontforge.ask(
+        "界面语言 / Interface Language",
+        "选择界面语言（重启 FontForgePro 后生效）：\n"
+        "Choose the interface language (restart FontForgePro to apply):",
+        tuple(labels),
+        0,
+        len(labels) - 1,
+    )
+    if answer is None or answer == len(labels) - 1:
+        return
+    if not (0 <= answer < len(LANGUAGE_OPTIONS)):
+        return
+    code = LANGUAGE_OPTIONS[answer][0]
+    path = pathlib.Path(
+        os.environ.get("APPDATA", tempfile.gettempdir())
+    ) / "language.txt"
+    try:
+        path.write_text(code, encoding="utf-8")
+    except Exception as exc:
+        _notify("界面语言 / Language", "无法保存语言设置：\n%s" % exc)
+        return
+    _notify(
+        "界面语言 / Language",
+        _msg(
+            "语言已保存：%s\n请重启 FontForgePro 后生效。",
+            "Language saved: %s\nRestart FontForgePro to apply.",
+        )
+        % code,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Plugin registration
 
 
-def _add(callback, context, name, submenu=SUBMENU):
+def _add(callback, context, labels: dict, identifier: str):
     fontforge.registerMenuItem(
         callback=callback,
         context=context,
-        name=name,
-        submenu=submenu,
+        name=(_localized(labels), labels["en"], identifier),
+        submenu=_submenu_name(),
     )
 
 
@@ -655,16 +748,57 @@ def fontforge_plugin_init(**_kwargs):
         _log("plugin loaded without a UI; menu skipped")
         return
     try:
-        _add(font_audit, "Font", ("字体体检", "Font Audit", "FFpro_FontAudit"))
-        _add(open_font_preview, ("Font", "Glyph"), ("字体预览…", "Font Preview...", "FFpro_FontPreview"))
-        _add(fill_basic_charset, "Font", ("补齐基本字符集", "Add Basic Character Set", "FFpro_AddBasicCharset"))
-        _add(clean_glyphs, ("Font", "Glyph"), ("字形清理", "Clean Glyphs", "FFpro_CleanGlyphs"))
-        _add(center_glyphs, ("Font", "Glyph"), ("水平居中", "Center Glyphs", "FFpro_CenterGlyphs"))
-        _add(round_corners, ("Font", "Glyph"), ("圆角拐点…", "Round Corners...", "FFpro_RoundCorners"))
-        _add(open_starter, "Font", ("打开模板字体", "Open Starter Font", "FFpro_OpenStarter"))
-        _add(open_manual, ("Font", "Glyph"), ("FFpro 中文教程", "FFpro Manual", "FFpro_OpenManual"))
-        _add(open_official_docs, ("Font", "Glyph"), ("FontForge 官方手册", "FontForge Manual", "FFpro_OfficialDocs"))
-        _add(open_about, ("Font", "Glyph"), ("关于 FontForgePro", "About FontForgePro", "FFpro_About"))
+        _add(font_audit, "Font", {
+            "zh": "字体体检", "en": "Font Audit", "fr": "Audit de police",
+            "ru": "Проверка шрифта", "es": "Auditoría de fuente", "ar": "فحص الخط",
+        }, "FFpro_FontAudit")
+        _add(open_font_preview, ("Font", "Glyph"), {
+            "zh": "字体预览…", "en": "Font Preview...",
+            "fr": "Aperçu de la police...", "ru": "Предпросмотр шрифта...",
+            "es": "Vista previa de fuente...", "ar": "معاينة الخط...",
+        }, "FFpro_FontPreview")
+        _add(fill_basic_charset, "Font", {
+            "zh": "补齐基本字符集", "en": "Add Basic Character Set",
+            "fr": "Ajouter le jeu de base", "ru": "Добавить базовый набор",
+            "es": "Añadir conjunto básico", "ar": "إضافة مجموعة الأحرف الأساسية",
+        }, "FFpro_AddBasicCharset")
+        _add(clean_glyphs, ("Font", "Glyph"), {
+            "zh": "字形清理", "en": "Clean Glyphs", "fr": "Nettoyer les glyphes",
+            "ru": "Очистить глифы", "es": "Limpiar glifos", "ar": "تنظيف الحروف",
+        }, "FFpro_CleanGlyphs")
+        _add(center_glyphs, ("Font", "Glyph"), {
+            "zh": "水平居中", "en": "Center Glyphs", "fr": "Centrer les glyphes",
+            "ru": "Центрировать глифы", "es": "Centrar glifos", "ar": "توسيط الحروف",
+        }, "FFpro_CenterGlyphs")
+        _add(round_corners, ("Font", "Glyph"), {
+            "zh": "圆角拐点…", "en": "Round Corners...",
+            "fr": "Arrondir les angles...", "ru": "Скруглить углы...",
+            "es": "Redondear esquinas...", "ar": "تدوير الزوايا...",
+        }, "FFpro_RoundCorners")
+        _add(open_starter, "Font", {
+            "zh": "打开模板字体", "en": "Open Starter Font",
+            "fr": "Ouvrir la police modèle", "ru": "Открыть шаблон шрифта",
+            "es": "Abrir fuente de inicio", "ar": "فتح الخط النموذجي",
+        }, "FFpro_OpenStarter")
+        _add(open_manual, ("Font", "Glyph"), {
+            "zh": "FFpro 中文教程", "en": "FFpro Manual", "fr": "Manuel FFpro",
+            "ru": "Руководство FFpro", "es": "Manual de FFpro", "ar": "دليل FFpro",
+        }, "FFpro_OpenManual")
+        _add(open_official_docs, ("Font", "Glyph"), {
+            "zh": "FontForge 官方手册", "en": "FontForge Manual",
+            "fr": "Manuel FontForge", "ru": "Руководство FontForge",
+            "es": "Manual de FontForge", "ar": "دليل FontForge",
+        }, "FFpro_OfficialDocs")
+        _add(choose_language, ("Font", "Glyph"), {
+            "zh": "界面语言…", "en": "Interface Language...",
+            "fr": "Langue de l'interface...", "ru": "Язык интерфейса...",
+            "es": "Idioma de la interfaz...", "ar": "لغة الواجهة...",
+        }, "FFpro_Language")
+        _add(open_about, ("Font", "Glyph"), {
+            "zh": "关于 FontForgePro", "en": "About FontForgePro",
+            "fr": "À propos de FontForgePro", "ru": "О FontForgePro",
+            "es": "Acerca de FontForgePro", "ar": "حول FontForgePro",
+        }, "FFpro_About")
         _log("plugin init ok")
     except Exception as exc:
         _log("plugin init failed: %r" % (exc,))
