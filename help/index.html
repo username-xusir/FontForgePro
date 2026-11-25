@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FontForgePro 本地教程</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">f</div>
+      <div>
+        <div class="brand-title">FontForgePro</div>
+        <div class="brand-sub">本地教程 · v2.0.0</div>
+      </div>
+    </div>
+    <div class="nav-label">开始</div>
+    <nav class="nav">
+      <a href="#quickstart">5 分钟上手</a>
+      <a href="#interface">界面地图</a>
+      <a href="#draw">绘制字形</a>
+      <a href="#points">节点编辑</a>
+      <a href="#paths">路径与布尔</a>
+      <a href="#advanced">组件与排版</a>
+      <a href="#ffpro">FFpro 工具</a>
+      <a href="#export">导出与验证</a>
+      <a href="#shortcuts">快捷键</a>
+      <a href="#faq">常见问题</a>
+      <a href="#license">许可与来源</a>
+    </nav>
+    <div class="sidebar-foot">
+      本页面完全离线。<br>
+      基于 FontForge 20251009 构建。<br>
+      GPL-3.0 许可。
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="hero">
+      <span class="kicker">FONTFORGEPRO · 本地手册</span>
+      <h1>用 FontForge 的全部能力，<br>做一套自己的字体。</h1>
+      <p>
+        FontForgePro 以原生 FontForge 20251009 为内核，保留它的全部专业功能，
+        并在 <strong>工具 → FFpro 工具</strong> 中加入少量更顺手的整理、圆角、居中和模板功能。
+        这份教程不需要联网，随时可以从菜单重新打开。
+      </p>
+      <div class="toc">
+        <a href="#quickstart">第一次做字体</a>
+        <a href="#points">节点怎么调</a>
+        <a href="#ffpro">FFpro 新增了什么</a>
+        <a href="#export">怎么导出</a>
+      </div>
+    </header>
+
+    <section class="section" id="quickstart">
+      <h2>5 分钟上手</h2>
+      <p class="lead">如果你只想先做出一个能安装的字体，按下面四步走即可。</p>
+      <ol class="steps">
+        <li><strong>新建字体。</strong>在字体窗口按 <kbd>Ctrl</kbd>+<kbd>N</kbd>，或从 <strong>文件 → 新建</strong> 开始。想省事可以直接用 <strong>工具 → FFpro 工具 → 打开模板字体</strong>，模板已经准备好常用字符槽位和宽度。</li>
+        <li><strong>打开一个字形的编辑窗口。</strong>在字体网格里双击任意字母，进入字形视图。画布中央是基线，左侧竖线是原点，右侧竖线是字符宽度。</li>
+        <li><strong>画轮廓。</strong>用工具栏的钢笔工具点出节点，或直接用矩形/椭圆工具画基本形。轮廓必须是闭合的，内部挖空要用相反方向的轮廓或布尔运算。</li>
+        <li><strong>导出。</strong>回到字体窗口，<strong>文件 → 生成字体</strong>（<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>），选择 TrueType 或 OpenType，保存为 <code>.ttf</code> / <code>.otf</code>。要网页字体就再导出 WOFF2。</li>
+      </ol>
+      <div class="note">
+        <p><strong>先存盘。</strong>FontForge 的原生工程格式是 <code>.sfd</code>。养成 <kbd>Ctrl</kbd>+<kbd>S</kbd> 的习惯；导出 <code>.ttf</code> 前也建议先保存 <code>.sfd</code>，方便以后继续改。</p>
+      </div>
+    </section>
+
+    <section class="section" id="interface">
+      <h2>界面地图</h2>
+      <p>FontForge 的窗口分工很清楚，先认住三类窗口就不会迷路。</p>
+      <div class="grid">
+        <div class="card">
+          <h3>字体窗口（Font View）</h3>
+          <p>看到所有字符格子的地方。双击进入字形；右键可以查看字形信息、复制、删除、添加编码。菜单里的批量操作大多在这里执行。</p>
+        </div>
+        <div class="card">
+          <h3>字形窗口（Glyph View）</h3>
+          <p>真正画字的地方。左侧工具栏、上方标尺、中间轮廓、右侧图层面板。每个字形有前景层和背景层，背景层适合放参考图或临摹底稿。</p>
+        </div>
+        <div class="card">
+          <h3>度量窗口（Metrics View）</h3>
+          <p>调字距和连字的地方。可以同时看到多个字形，拖动字符之间的间距，或编辑 kerning 对。</p>
+        </div>
+      </div>
+      <h3>字体窗口顶部的信息条</h3>
+      <p>显示当前字体名、Em 大小、字形数量、选中数量。双击信息条可以打开字体信息对话框，改家族名、样式名、版本、版权、上下伸、下划线位置等。</p>
+      <h3>图层面板</h3>
+      <p>字形窗口右侧的图层列表可以切换前景/背景，也能新建图层。多层字体（比如彩色字体、变量字体）会在这里出现多个层。眼睛图标控制可见性，锁图标控制是否可编辑。</p>
+      <div class="note">
+        <p><strong>中文界面：</strong>FontForgePro 会根据 Windows 系统语言自动选择中文或英文界面。中文界面使用微软雅黑作为 UI 字体，不会出现方框乱码。</p>
+      </div>
+    </section>
+
+    <section class="section" id="draw">
+      <h2>绘制字形</h2>
+      <h3>钢笔与节点</h3>
+      <p>钢笔工具每点一下添加一个角点；按住拖动会拉出控制柄，变成曲线点。闭合轮廓时点回第一个节点，或按 <kbd>Enter</kbd>。开放的路径在导出时会被忽略或产生意外结果，正式字形尽量保持闭合。</p>
+      <h3>矩形、椭圆与多边形</h3>
+      <p>工具栏里的矩形/椭圆工具可以直接拖出形状。FontForge 还提供星形、螺旋等工具。画完后用指针工具 <kbd>V</kbd> 选中节点继续调整。</p>
+      <h3>Spiro</h3>
+      <p>Spiro 是一种用曲率控制的平滑曲线模式，适合做圆润的几何字形。工具栏的 Spiro 按钮可以切换。Spiro 轮廓在导出前可以转成普通三次曲线。</p>
+      <h3>背景层</h3>
+      <p>把参考图拖进字形窗口，或使用 <strong>文件 → 导入</strong>，图片会进入背景层。背景层不会被导出，只用于描摹。也可以在背景层画辅助线。</p>
+      <div class="grid">
+        <div class="card">
+          <h3>坐标与基线</h3>
+          <p>字体单位通常是 1000 或 2048。基线 y=0，上伸约 800，下伸约 -200。不同字形共享同一套坐标。</p>
+        </div>
+        <div class="card">
+          <h3>字符宽度</h3>
+          <p>右侧宽度线决定 advance width。字母通常 500–700，空格 250 左右。宽度为 0 的组合字符不会前进。</p>
+        </div>
+        <div class="card">
+          <h3>参考线</h3>
+          <p>可以在字形窗口显示基线、x 高度、大写高度、斜体线等。视图菜单里可以开关。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="points">
+      <h2>节点编辑</h2>
+      <p>这是字体设计最常用的操作。FontForge 的节点比普通矢量软件多一层“曲线类型”的概念。</p>
+      <h3>选择与移动</h3>
+      <ul>
+        <li>指针工具 <kbd>V</kbd> 框选节点，或按住 <kbd>Shift</kbd> 点选多个。</li>
+        <li>方向键微移 1 单位，<kbd>Shift</kbd>+方向键移动 10 单位。</li>
+        <li>拖动控制柄改变曲线；按住 <kbd>Alt</kbd> 可以单独调整一侧手柄。</li>
+      </ul>
+      <h3>角点、曲线点、切线点</h3>
+      <p>右键节点可以切换类型：</p>
+      <table>
+        <thead><tr><th>类型</th><th>特点</th><th>适用</th></tr></thead>
+        <tbody>
+          <tr><td>角点（Corner）</td><td>两侧手柄独立，轮廓在这里形成尖角</td><td>字母的尖角、衬线端点</td></tr>
+          <tr><td>曲线点（Curve）</td><td>两侧手柄共线，但长度可以不同</td><td>大多数平滑转折</td></tr>
+          <tr><td>切线点（Tangent）</td><td>手柄共线且等长，曲线最平滑</td><td>圆弧、碗形结构</td></tr>
+          <tr><td>HV 曲线点</td><td>手柄水平/垂直约束</td><td>需要保持水平或垂直的曲线</td></tr>
+        </tbody>
+      </table>
+      <h3>添加与删除</h3>
+      <p>在轮廓上双击可以插入节点；选中节点按 <kbd>Delete</kbd> 删除。删除后轮廓会自动连接。要断开轮廓，用剪刀工具在节点处剪开。</p>
+      <h3>对齐与变换</h3>
+      <p>选中多个节点后，可以用 <strong>元素 → 变换</strong> 做旋转、缩放、倾斜、翻转；也可以用 <strong>元素 → 对齐</strong> 做水平/垂直对齐。数值变换在 <strong>元素 → 变换 → 数值变换</strong> 里输入精确值。</p>
+      <div class="note">
+        <p><strong>FFpro 小工具：</strong>如果只是想把字形在宽度里居中，用 <strong>工具 → FFpro 工具 → 水平居中</strong>，比手动算左右边距快。</p>
+      </div>
+    </section>
+
+    <section class="section" id="paths">
+      <h2>路径与布尔</h2>
+      <h3>布尔运算</h3>
+      <p>选中两个或多个重叠轮廓，使用 <strong>元素 → 重叠 → 并集 / 差集 / 交集 / 异或</strong>。做字母的内部挖空（比如 O、B、e）时，最稳的方法是画外轮廓和内轮廓，然后执行“差集”或“移除重叠”。</p>
+      <h3>移除重叠</h3>
+      <p><strong>元素 → 重叠 → 移除重叠</strong> 会合并所有相交轮廓，自动处理方向。导出前建议执行一次，避免填充规则问题。</p>
+      <h3>简化与清理</h3>
+      <p><strong>元素 → 简化 → 简化</strong> 可以减少节点；<strong>添加极值点</strong> 在曲线的最高/最低/最左/最右处补点，让栅格化和 hinting 更稳定；<strong>坐标取整</strong> 把浮点坐标变成整数。</p>
+      <p>这一组操作可以一次完成：<strong>工具 → FFpro 工具 → 字形清理</strong>，会对选中字形（或全部字形）执行坐标取整、补极值点、统一轮廓方向。</p>
+      <h3>圆角拐点</h3>
+      <p><strong>工具 → FFpro 工具 → 圆角拐点…</strong> 可以把尖角变成圆弧，半径以字体单位计算。它只处理相邻两边都是直线的角，曲线拐点保持原样。适合做圆润的几何风格字体。</p>
+      <h3>描边与扩展</h3>
+      <p><strong>元素 → 扩展描边</strong> 可以把细线轮廓变成有宽度的形状。做等线体、装饰线时很有用。</p>
+    </section>
+
+    <section class="section" id="advanced">
+      <h2>组件、连字与排版</h2>
+      <h3>引用（组件）</h3>
+      <p>在字形窗口里 <strong>编辑 → 复制</strong> 一个字形，然后在另一个字形里 <strong>编辑 → 粘贴为引用</strong>，就能建立组件关系。改基础字形，所有引用会一起更新。带重音的字母（á、ö）通常这样搭。</p>
+      <h3>锚点与 mark 定位</h3>
+      <p>用锚点工具在基础字母上放 <code>top</code>、<code>bottom</code> 锚点，在重音符号上放对应锚点，然后在字体信息里建立 mark 特性。FontForge 会自动生成 mark-to-base 定位。</p>
+      <h3>连字</h3>
+      <p>在字体窗口打开 <strong>元素 → 字体信息 → 查找</strong>，新建 <code>liga</code> 或 <code>dlig</code> 查找，把 <code>f</code> + <code>i</code> 映射到 <code>fi</code> 字形。也可以在 <strong>元素 → 连字</strong> 里可视化编辑。</p>
+      <h3>字距与 kerning</h3>
+      <p>打开 <strong>窗口 → 度量</strong>，选择两个字形，拖动它们之间的间距。FontForge 会记录 kerning 对。成对调整很多字母时，可以先用类别（class）批量处理。</p>
+      <h3>OpenType 特性</h3>
+      <p>字体信息里的 GSUB/GPOS 面板支持连字、替代、小型大写、旧式数字、分数、上下标等。所有表都可以手动编辑，也可以从特性文件（.fea）导入。</p>
+      <h3>变量字体与多母版</h3>
+      <p>FontForge 支持多母版（MM）和设计空间文件。用 <strong>文件 → 新建 → 多母版</strong> 或打开 designspace 工程，可以制作可变字体。</p>
+    </section>
+
+    <section class="section" id="ffpro">
+      <h2>FFpro 工具</h2>
+      <p>这些命令在 <strong>工具 → FFpro 工具</strong> 下。它们不会替代 FontForge，只是把常用的小流程做得更顺手。</p>
+      <table>
+        <thead><tr><th>命令</th><th>作用</th><th>适用窗口</th></tr></thead>
+        <tbody>
+          <tr><td>字体体检</td><td>统计字形、编码、空字形、零宽/负宽，检查轮廓是否有效</td><td>字体窗口</td></tr>
+          <tr><td>补齐基本字符集</td><td>补上 ASCII、Latin-1、常用标点和符号的空槽位，不覆盖已有字形</td><td>字体窗口</td></tr>
+          <tr><td>字形清理</td><td>坐标取整、补极值点、统一轮廓方向；有选中就处理选中，否则询问是否处理全部</td><td>字体 / 字形</td></tr>
+          <tr><td>水平居中</td><td>按字符宽度把字形轮廓水平居中，组合字符会跳过</td><td>字体 / 字形</td></tr>
+          <tr><td>圆角拐点…</td><td>按指定半径把直线尖角做成圆弧，支持 20/40/80/120 单位预设</td><td>字体 / 字形</td></tr>
+          <tr><td>打开模板字体</td><td>复制一份 FFpro Starter 模板并打开，自带常用字符槽位和宽度</td><td>字体窗口</td></tr>
+          <tr><td>打开本地教程</td><td>打开这份离线手册</td><td>字体 / 字形</td></tr>
+          <tr><td>关于 FontForgePro</td><td>版本、许可和来源说明</td><td>字体 / 字形</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p>所有 FFpro 工具都在本地执行，不联网、不上传字体。批量操作前建议先保存 <code>.sfd</code>；清理和圆角会尽量写入 FontForge 的撤销记录，但大范围操作仍建议留备份。</p>
+      </div>
+    </section>
+
+    <section class="section" id="export">
+      <h2>导出与验证</h2>
+      <h3>生成字体</h3>
+      <ol class="steps">
+        <li><strong>先保存工程。</strong><kbd>Ctrl</kbd>+<kbd>S</kbd> 保存 <code>.sfd</code>。</li>
+        <li><strong>补字体信息。</strong>家族名、样式名、版本、版权、上下伸、下划线位置。名字不要和系统已有字体冲突。</li>
+        <li><strong>清理轮廓。</strong>移除重叠、补极值点、统一方向。FFpro 的“字形清理”可以一次完成后面两项。</li>
+        <li><strong>生成。</strong><strong>文件 → 生成字体</strong>，选择 TrueType（.ttf）、OpenType（.otf）、WOFF、WOFF2 等格式。需要网页用就再生成 WOFF2。</li>
+        <li><strong>验证。</strong>用 <strong>元素 → 验证</strong> 检查轮廓方向、开放路径、自交等问题；也可以在字体窗口用 <strong>视图 → 显示</strong> 查看填充效果。</li>
+      </ol>
+      <h3>安装测试</h3>
+      <p>双击生成的字体文件，选择“安装”，然后在文字处理软件里输入一段话看看。重点检查：字母间距、标点位置、上下伸是否被裁切、粗体/斜体是否有对应文件。</p>
+      <h3>网页字体</h3>
+      <p>WOFF2 体积最小，现代浏览器都支持。导出后在 CSS 里用 <code>@font-face</code> 引入即可。注意网页字体通常只包含你实际用到的字符集，可以先用子集化工具裁剪。</p>
+      <h3>常见导出问题</h3>
+      <table>
+        <thead><tr><th>现象</th><th>原因</th><th>处理</th></tr></thead>
+        <tbody>
+          <tr><td>字母内部被填满</td><td>内外轮廓方向相同，或没有移除重叠</td><td>执行“移除重叠”或“正确方向”</td></tr>
+          <tr><td>某些字符不显示</td><td>没有分配 Unicode 编码</td><td>右键字符槽 → 字形信息 → 设置 Unicode</td></tr>
+          <tr><td>导出后位置偏移</td><td>基线或宽度不对</td><td>检查 y=0 基线、宽度线、左右边距</td></tr>
+          <tr><td>安装后名字冲突</td><td>家族名/样式名和系统字体重名</td><td>改一个独特的家族名，重新生成</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="shortcuts">
+      <h2>快捷键</h2>
+      <p>以下是 FontForge 常用快捷键。不同窗口的快捷键可能不同，以菜单里显示的为准。</p>
+      <table>
+        <thead><tr><th>操作</th><th>快捷键</th></tr></thead>
+        <tbody>
+          <tr><td>新建字体</td><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td></tr>
+          <tr><td>打开</td><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td></tr>
+          <tr><td>保存</td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td></tr>
+          <tr><td>另存为</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td></tr>
+          <tr><td>生成字体</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd></td></tr>
+          <tr><td>关闭窗口</td><td><kbd>Ctrl</kbd>+<kbd>W</kbd></td></tr>
+          <tr><td>撤销 / 重做</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd></td></tr>
+          <tr><td>复制 / 粘贴</td><td><kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td></tr>
+          <tr><td>指针工具</td><td><kbd>V</kbd></td></tr>
+          <tr><td>钢笔工具</td><td><kbd>P</kbd></td></tr>
+          <tr><td>剪刀工具</td><td><kbd>K</kbd></td></tr>
+          <tr><td>矩形 / 椭圆</td><td>工具栏选择，或 <kbd>R</kbd> / <kbd>E</kbd></td></tr>
+          <tr><td>放大 / 缩小</td><td><kbd>+</kbd> / <kbd>-</kbd></td></tr>
+          <tr><td>适应窗口</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></td></tr>
+          <tr><td>微移节点</td><td>方向键；<kbd>Shift</kbd>+方向键移动 10 单位</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>常见问题</h2>
+      <h3>为什么界面里有方框或乱码？</h3>
+      <p>FontForgePro 已经把 UI 字体设为微软雅黑，正常不会出现。如果仍然出现，检查 <code>%APPDATA%\FontForgePro\FontForge\prefs</code> 里的 <code>ResourceFile</code> 是否指向应用目录下的 <code>resources\ffpro.resources</code>。</p>
+      <h3>为什么打开字体后是英文？</h3>
+      <p>界面语言跟随 Windows 系统语言。系统是中文时启动器会设置 <code>LANG=zh_CN</code>。如果系统是英文，FontForge 会使用英文界面。</p>
+      <h3>设置和最近打开的文件在哪里？</h3>
+      <p>在 <code>%APPDATA%\FontForgePro\</code>。FontForge 的偏好、自动保存、插件配置都在里面的 <code>FontForge</code> 子目录。卸载应用不会自动删除这个目录，方便保留设置。</p>
+      <h3>FFpro 工具菜单在哪里？</h3>
+      <p>字体窗口或字形窗口的 <strong>工具</strong> 菜单底部，名为 <strong>FFpro 工具</strong>。如果看不到，检查 <strong>文件 → 配置插件</strong> 里 FFpro 是否启用。</p>
+      <h3>能写 Python 脚本吗？</h3>
+      <p>可以。FontForge 自带 Python 3.12，支持 <code>fontforge</code> 和 <code>psMat</code> 模块。用 <strong>文件 → 执行脚本</strong> 运行，或把脚本放到用户脚本目录。插件本身也是 Python 写的，源码在应用目录的 <code>lib\python3.12\site-packages\ffpro_tools.py</code>。</p>
+      <h3>为什么圆角只对部分角生效？</h3>
+      <p>圆角命令只处理相邻两段都是直线的尖角。曲线与直线相接、或两个曲线相接的拐点会保持原样，避免破坏原本的曲线形状。</p>
+      <h3>和原来的 FontForge 有什么区别？</h3>
+      <p>内核、功能和文件格式完全一致；区别是品牌、中文 UI 字体、深色外观、FFpro 工具菜单、模板字体和这份本地教程。你可以随时用原版 FontForge 打开 FontForgePro 保存的 <code>.sfd</code>。</p>
+      <h3>支持哪些系统？</h3>
+      <p>当前发布包是 Windows 64 位。FontForge 本身跨平台，macOS 和 Linux 用户可以自行编译，或使用原版 FontForge 加同一套插件。</p>
+    </section>
+
+    <section class="section" id="license">
+      <h2>许可与来源</h2>
+      <p>FontForgePro 以 <strong>FontForge 20251009</strong> 为内核。FontForge 是自由软件，遵循 GNU GPL v3（部分组件为 BSD 许可）。FontForgePro 的界面定制、FFpro 工具和这份教程同样以 GPL-3.0 发布。</p>
+      <p>完整的许可证文本、第三方声明和 FontForge 源码获取方式见应用目录下的 <code>LICENSE</code>、<code>THIRD_PARTY_NOTICES.md</code>，以及项目仓库。</p>
+      <div class="note">
+        <p>FontForgePro 与 FontForge 原项目没有官方隶属关系。FontForge 的名称和版权归其贡献者所有；“FontForgePro / FFpro”是本项目的产品名。</p>
+      </div>
+      <p><a href="about.html">打开关于页</a> · <a href="https://github.com/username-xusir/FontForgePro" target="_blank" rel="noreferrer">项目仓库</a></p>
+    </section>
+
+    <footer class="footer">
+      FontForgePro v2.0.0 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网
+    </footer>
+  </main>
+</div>
+</body>
+</html>

@@ -1,6 +1,8 @@
-node_modules/
+dist/
 release/
-.test-*/
+.test/
 *.log
+*.zip.sha256
 
-/FontForgePro-*.zip
+__pycache__/
+*.pyc

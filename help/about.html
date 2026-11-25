@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关于 FontForgePro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">f</div>
+      <div>
+        <div class="brand-title">FontForgePro</div>
+        <div class="brand-sub">关于 · v2.0.0</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">← 返回教程</a>
+      <a href="#about">产品说明</a>
+      <a href="#features">功能</a>
+      <a href="#license">许可</a>
+      <a href="#credits">第三方</a>
+    </nav>
+    <div class="sidebar-foot">
+      FontForgePro (FFpro)<br>
+      本地字体设计工具
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="hero" id="about">
+      <span class="kicker">FONTFORGEPRO · ABOUT</span>
+      <h1>FontForgePro</h1>
+      <p>
+        一个以原生 FontForge 为内核的 Windows 字体设计应用。
+        保留 FontForge 的全部专业功能，加上中文界面、深色外观和少量 FFpro 工作流工具。
+      </p>
+      <div class="toc">
+        <a href="index.html">打开本地教程</a>
+        <a href="#license">查看许可</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>版本</h2>
+      <table>
+        <tbody>
+          <tr><th>FontForgePro</th><td>2.0.0</td></tr>
+          <tr><th>FontForge 内核</th><td>20251009（2025-10-09 构建）</td></tr>
+          <tr><th>Python</th><td>3.12（随 FontForge 提供）</td></tr>
+          <tr><th>平台</th><td>Windows 10 / 11 64 位</td></tr>
+          <tr><th>界面语言</th><td>跟随系统；中文系统显示中文</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="features">
+      <h2>功能</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>FontForge 全部功能</h3>
+          <p>字形绘制、节点编辑、Spiro、布尔运算、组件、锚点、连字、字距、OpenType 特性、多母版、变量字体、hinting、验证、脚本。</p>
+        </div>
+        <div class="card">
+          <h3>FFpro 工具</h3>
+          <p>字体体检、补齐基本字符集、字形清理、水平居中、圆角拐点、模板字体、本地教程。</p>
+        </div>
+        <div class="card">
+          <h3>本地优先</h3>
+          <p>不联网、不上传字体。教程和关于页都是本地 HTML。</p>
+        </div>
+        <div class="card">
+          <h3>深色界面</h3>
+          <p>字体网格、字形画布、菜单和对话框统一为黑/白单色外观，长时间编辑更舒服。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="license">
+      <h2>许可</h2>
+      <p>FontForgePro 以 GNU General Public License v3.0（GPL-3.0）发布。FontForge 本身也是 GPL-3.0（部分组件为 BSD 许可）。</p>
+      <p>你可以自由使用、研究、修改和分发本软件，但分发修改版时需要遵守 GPL-3.0：提供完整源代码、保留版权与许可声明、并以相同许可发布衍生作品。</p>
+      <p>应用目录中的 <code>LICENSE</code> 是 GPL-3.0 全文；<code>THIRD_PARTY_NOTICES.md</code> 列出第三方组件和来源；<code>vendor\FontForge-20251009-source.zip</code> 是 FontForge 对应版本的源码包，方便满足源码提供义务。</p>
+      <div class="note">
+        <p>FontForgePro 与 FontForge 原项目没有官方隶属关系。FontForge 的名称和版权归其贡献者所有。</p>
+      </div>
+    </section>
+
+    <section class="section" id="credits">
+      <h2>第三方与来源</h2>
+      <ul>
+        <li><strong>FontForge 20251009</strong> — 字体编辑内核，GPL-3.0 / BSD。源码：<a href="https://github.com/fontforge/fontforge" target="_blank" rel="noreferrer">github.com/fontforge/fontforge</a></li>
+        <li><strong>FontForge Windows Builds</strong> — Windows 构建与 GTK/Python 运行时。源码与构建脚本：<a href="https://github.com/fontforge/fontforgebuilds" target="_blank" rel="noreferrer">github.com/fontforge/fontforgebuilds</a></li>
+        <li><strong>GTK / GLib / Pango / Cairo</strong> — LGPL 等自由软件许可。</li>
+        <li><strong>Microsoft YaHei UI</strong> — Windows 系统字体，仅作为界面字体引用，不随应用分发。</li>
+      </ul>
+      <p>完整清单见应用目录的 <code>THIRD_PARTY_NOTICES.md</code>。</p>
+    </section>
+
+    <footer class="footer">
+      FontForgePro v2.0.0 · 基于 FontForge 20251009 · GPL-3.0<br>
+      <a href="index.html">本地教程</a>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

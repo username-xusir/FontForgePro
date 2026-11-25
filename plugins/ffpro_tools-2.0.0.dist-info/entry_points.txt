@@ -1,0 +1,2 @@
+[fontforge_plugin]
+ffpro_tools = ffpro_tools

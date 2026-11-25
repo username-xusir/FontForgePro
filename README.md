@@ -1,73 +1,143 @@
-# FontForgePro (FFpro)
+# FontForgePro (FFpro) 2.0.0
 
-FontForgePro is a local, offline desktop font editor for Windows, built with
-Electron and based on the Glyphr Studio 2.10.0 engine.
+A Windows font editor built on the **native FontForge 20251009** application.
+FontForgePro keeps all of FontForge's professional features and adds a dark
+monochrome appearance, Chinese/multilingual UI handling, a small set of FFpro
+workflow tools, a starter font, and an offline manual.
 
-> FontForgePro is an independent project and is **not affiliated with the
-> FontForge project**. It is built on Glyphr Studio 2.10.0 under GPL-3.0.
+> FontForgePro is an independent product built on FontForge. It is not
+> affiliated with or endorsed by the FontForge project.
 
-![FontForgePro start page](docs/screenshots/start.png)
+![Start](docs/screenshots/start.png)
 
-## Features
+![Font view](docs/screenshots/fontview.png)
 
-- Monochrome desktop UI with Chinese/English localization that follows the
-  Windows display language.
-- Direct point editing with hover vertices, 1:1 vertex dragging, right-click
-  point insertion and control-handle editing.
-- Transforms: flip, rotate 90°, reverse direction, round coordinates, move and
-  scale.
-- Align, distribute, add extrema, simplify, and boolean operations (union,
-  subtract, intersect, exclude, divide, unite all).
-- Layers, history, guides, quality checks, character info, components,
-  ligatures and class-based kerning.
-- Built-in font preview at eight sizes, and export to TTF, OTF, WOFF, WOFF2 and
-  SVG through the native Windows save dialog.
-- Fully offline: tutorial content is bundled, analytics and external requests
-  are blocked.
-
-![Editor](docs/screenshots/editor.png)
+![Offline manual](docs/screenshots/help.png)
 
 ## Download
 
-See the [Releases](https://github.com/username-xusir/FontForgePro/releases)
-page for the Windows x64 build.
+Builds are published on the
+[releases page](https://github.com/username-xusir/FontForgePro/releases).
 
-## Run from source
+The Windows package is self-contained: FontForge, GTK, Python 3.12, the FFpro
+plugin, the starter template, and the offline manual are all included.
 
-Requirements: Windows 10/11, Node.js 22+, npm.
+## What is included
 
-```bash
-npm install
-npm start
-```
+### All of FontForge
 
-Build a portable Windows application:
+The application is the real FontForge 20251009 binary, not a reimplementation.
+That means the full feature set is present:
 
-```bash
-npm run package
-```
+- Glyph drawing, point editing, Spiro, layers and background layers
+- Boolean operations, overlap removal, simplification, extrema, hinting
+- Components/references, anchors, ligatures, kerning, OpenType features
+- Metrics view, font info, validation, Python and legacy scripting
+- Multiple masters and variable-font workflows
+- Import/export of OpenType, TrueType, WOFF, SVG, UFO, and many other formats
 
-The output is written to `release/FFpro-win32-x64/`.
+### FFpro additions
 
-## Keyboard shortcuts
+Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 
-| Key | Action |
+| Command | What it does |
 | --- | --- |
-| V / A | Select |
-| P / B | Path edit |
-| U / E | Add path point |
-| H / W | New path |
-| R / M | Rectangle |
-| O / Q | Oval |
-| Space | Temporary pan |
-| Ctrl+Z / Ctrl+Y | Undo / redo |
-| Ctrl+S / Ctrl+E | Save / export |
-| Ctrl+0 / Ctrl+1 | Fit view / 100% |
-| [ / ] | Move layer down / up |
+| 字体体检 / Font Audit | Counts glyphs, reports empty/zero-width/negative-width glyphs, runs FontForge validation |
+| 补齐基本字符集 / Add Basic Character Set | Adds ASCII, Latin-1, and common punctuation slots with sensible widths |
+| 字形清理 / Clean Glyphs | Rounds coordinates, adds extrema, and corrects contour direction |
+| 水平居中 / Center Glyphs | Centers outlines inside the advance width |
+| 圆角拐点 / Round Corners | Rounds sharp line-to-line corners to a chosen radius |
+| 打开模板字体 / Open Starter Font | Opens a copy of the FFpro Starter template |
+| 打开本地教程 / Open Local Manual | Opens the bundled Chinese manual |
+| 关于 FontForgePro / About | Version, license, and source information |
+
+### Appearance and localization
+
+- Dark, monochrome editor theme for the font grid, glyph canvas, menus, and dialogs
+- UI language follows the Windows system language through FontForge's gettext catalogs
+- CJK-capable UI font fallback (Microsoft YaHei UI, Yu Gothic UI, Malgun Gothic)
+- Separate settings directory (`%APPDATA%\FontForgePro`) so an existing
+  FontForge installation is not modified
+
+## Quick start
+
+1. Run `FontForgePro.exe`.
+2. Open a font, or use **工具 → FFpro 工具 → 打开模板字体** for a starter file.
+3. Double-click a glyph, draw with the pen/shape tools, and set the width line.
+4. Save the project as `.sfd`, then use **文件 → 生成字体** to export TTF/OTF/WOFF2.
+5. Open **工具 → FFpro 工具 → 打开本地教程** for the full Chinese walkthrough.
+
+## Build from source
+
+Requirements:
+
+- Windows 10/11 64-bit
+- [FontForge Windows Builds](https://github.com/fontforge/fontforgebuilds)
+  installed at `C:\Program Files\FontForgeBuilds` (version 20251009)
+- .NET Framework 4.x C# compiler (`csc.exe`)
+- PowerShell 5.1+
+
+Build:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
+```
+
+Output:
+
+- `dist\FontForgePro\` — runnable application directory
+- `release\FontForgePro-v2.0.0-win64.zip` — release archive
+- `release\FontForgePro-v2.0.0-win64.zip.sha256`
+
+Install for the current user:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File install.ps1
+```
+
+This copies the app to `%LOCALAPPDATA%\Programs\FontForgePro`, creates Desktop
+and Start Menu shortcuts, and registers an uninstall entry under
+`HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\FontForgePro`.
+
+## Project layout
+
+```
+src/Launcher.cs              Windows launcher: profile, locale, branding, icons
+src/make_resources.py        Generates the FontForge appearance resource
+plugins/ffpro_tools.py       FFpro FontForge plugin
+plugins/*.dist-info/         Entry-point metadata that lets FontForge discover it
+resources/ffpro.resources    Dark theme + CJK UI font configuration
+templates/FFpro-Starter.sfd  Starter font with basic character slots
+help/                        Offline manual and about page
+build.ps1 / install.ps1      Build and install scripts
+vendor/                      FontForge source (GPL compliance)
+```
+
+The launcher creates `%APPDATA%\FontForgePro\FontForge\prefs` on first run and
+points `ResourceFile` at `resources\ffpro.resources`. FontForge is launched with
+`-nosplash`, a POSIX locale matching the Windows UI language, and a private
+`APPDATA` so settings stay isolated.
+
+The plugin is discovered through the standard `fontforge_plugin` Python entry
+point group, so it also works with a normal FontForge installation if the
+package is placed on `sys.path`.
+
+## Relationship to the previous FFpro
+
+The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
+It remains available from the repository's release history. Version 2.0.0 is a
+different foundation: the native FontForge application. Font files and `.sfd`
+projects are compatible with FontForge.
 
 ## License
 
-GPL-3.0. See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+FontForgePro is released under **GPL-3.0**. FontForge 20251009 is also GPL-3.0
+(with some BSD-licensed components). See:
 
-The corresponding source of the bundled Glyphr Studio 2.10.0 engine is included
-in `vendor/Glyphr-Studio-2.10.0-source.zip`.
+- [`LICENSE`](LICENSE) — GPL-3.0 text
+- [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) — third-party components
+- [`vendor/FontForge-20251009-source.zip`](vendor/FontForge-20251009-source.zip) — corresponding FontForge source
+- [`SOURCE.txt`](SOURCE.txt) — source offer for the release package
+
+FontForge source: <https://github.com/fontforge/fontforge>  
+FontForge Windows build scripts: <https://github.com/fontforge/fontforgebuilds>

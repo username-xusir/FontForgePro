@@ -1,0 +1,32 @@
+FontForgePro 2.0.0 — Corresponding Source
+=========================================
+
+This package includes the source code for the FontForgePro-specific parts:
+
+  source\
+    src\Launcher.cs              Windows launcher / branding source
+    src\make_resources.py        Generates the FontForge appearance resource
+    ffpro_tools.py               FFpro Python plugin for FontForge
+    ffpro.resources              Generated FontForge appearance resource
+    FFpro-Starter.sfd            Starter font template
+    build.ps1, install.ps1, uninstall.ps1
+    README.md
+
+FontForge 20251009 source code is included at:
+
+  vendor\FontForge-20251009-source.zip
+
+FontForge Windows build scripts are included at:
+
+  vendor\fontforgebuilds-source.zip
+
+Upstream projects:
+
+  https://github.com/fontforge/fontforge
+  https://github.com/fontforge/fontforgebuilds
+
+FontForgePro source repository:
+
+  https://github.com/username-xusir/FontForgePro
+
+License: GNU General Public License v3.0. See LICENSE.
