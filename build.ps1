@@ -81,10 +81,9 @@ if (-not (Test-Path $PySite)) {
     throw "Python site-packages not found: $PySite"
 }
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $PySite "ffpro_tools.py")
+Get-ChildItem -Path $PySite -Directory -Filter "ffpro_tools-*.dist-info" -ErrorAction SilentlyContinue |
+    ForEach-Object { Remove-Item -Recurse -Force $_.FullName }
 $DistInfo = Join-Path $PySite "ffpro_tools-2.3.0.dist-info"
-if (Test-Path $DistInfo) {
-    Remove-Item -Recurse -Force $DistInfo
-}
 Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.3.0.dist-info") $DistInfo
 
 Write-Host "Installing Arabic UI catalog ..."
