@@ -9,6 +9,9 @@ Everything runs locally. No network access is used.
 
 from __future__ import annotations
 
+import base64
+import html
+import json
 import math
 import os
 import pathlib
@@ -20,7 +23,7 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.0.1"
+PLUGIN_VERSION = "2.1.0"
 SUBMENU = ("FFpro 工具", "FFpro Tools", "FFpro_Tools")
 
 BASIC_CODEPOINTS = (
@@ -68,8 +71,12 @@ def _home() -> pathlib.Path:
     env = os.environ.get("FFPRO_HOME")
     if env:
         return pathlib.Path(env)
+    here = pathlib.Path(__file__).resolve()
+    for parent in here.parents:
+        if (parent / "help" / "index.html").exists():
+            return parent
     # app/lib/python3.12/site-packages/ffpro_tools.py -> app
-    return pathlib.Path(__file__).resolve().parents[3]
+    return here.parents[3]
 
 
 def _log(message: str) -> None:
@@ -486,6 +493,89 @@ def round_corners(_data, obj):
 
 
 # ---------------------------------------------------------------------------
+# Font preview
+
+
+PREVIEW_SAMPLE = (
+    "字体预览 FontForgePro\n"
+    "永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭。\n"
+    "The quick brown fox jumps over the lazy dog.\n"
+    "0123456789 !@#$%^&*() []{}<>/?"
+)
+
+
+def _build_preview_page(f) -> pathlib.Path:
+    template_path = _help_page("preview-template.html")
+    if not template_path.exists():
+        raise RuntimeError("找不到预览模板：%s" % template_path)
+
+    temp_dir = pathlib.Path(tempfile.mkdtemp(prefix="FFpro-Preview-"))
+    font_path = temp_dir / "preview.woff2"
+    mime = "font/woff2"
+    font_format = "woff2"
+
+    try:
+        f.generate(
+            str(font_path),
+            flags=("no-FFTM-table", "omit-instructions"),
+        )
+    except Exception:
+        font_path = temp_dir / "preview.ttf"
+        mime = "font/ttf"
+        font_format = "truetype"
+        try:
+            f.generate(str(font_path))
+        except Exception:
+            font_path = temp_dir / "preview.otf"
+            mime = "font/otf"
+            font_format = "opentype"
+            f.generate(str(font_path))
+
+    font_bytes = font_path.read_bytes()
+    if not font_bytes:
+        raise RuntimeError("导出的预览字体为空。")
+
+    family = (f.familyname or f.fontname or "未命名字体").strip()
+    weight = (f.weight or "Regular").strip()
+    try:
+        glyph_count = len(list(f.glyphs()))
+    except Exception:
+        glyph_count = 0
+    meta = "%s · %d 字形 · Em %s · FontForge %s" % (
+        weight,
+        glyph_count,
+        f.em,
+        fontforge.version(),
+    )
+
+    template = template_path.read_text(encoding="utf-8")
+    page = (
+        template.replace("__FONT_NAME__", html.escape(family))
+        .replace("__FONT_META__", html.escape(meta))
+        .replace("__FONT_MIME__", mime)
+        .replace("__FONT_FORMAT__", font_format)
+        .replace("__FONT_DATA__", base64.b64encode(font_bytes).decode("ascii"))
+        .replace("__SAMPLE_TEXT__", html.escape(PREVIEW_SAMPLE))
+        .replace("__SAMPLE_JSON__", json.dumps(PREVIEW_SAMPLE, ensure_ascii=False))
+        .replace("__GENERATED__", time.strftime("%Y-%m-%d %H:%M"))
+    )
+
+    out = temp_dir / "preview.html"
+    out.write_text(page, encoding="utf-8")
+    return out
+
+
+def open_font_preview(_data, obj):
+    f = _as_font(obj)
+    try:
+        out = _build_preview_page(f)
+    except Exception as exc:
+        _notify("FFpro 字体预览", "生成预览失败：\n%s" % exc)
+        return
+    _open_local(out)
+
+
+# ---------------------------------------------------------------------------
 # Local manual / about / starter
 
 
@@ -495,6 +585,14 @@ def open_manual(_data, _obj):
         _open_local(page)
     else:
         _notify("FFpro 教程", "找不到本地教程：\n%s" % page)
+
+
+def open_official_docs(_data, _obj):
+    page = _help_page("official.html")
+    if page.exists():
+        _open_local(page)
+    else:
+        _notify("FontForge 官方手册", "找不到离线手册：\n%s" % page)
 
 
 def open_about(_data, _obj):
@@ -558,12 +656,14 @@ def fontforge_plugin_init(**_kwargs):
         return
     try:
         _add(font_audit, "Font", ("字体体检", "Font Audit", "FFpro_FontAudit"))
+        _add(open_font_preview, ("Font", "Glyph"), ("字体预览…", "Font Preview...", "FFpro_FontPreview"))
         _add(fill_basic_charset, "Font", ("补齐基本字符集", "Add Basic Character Set", "FFpro_AddBasicCharset"))
         _add(clean_glyphs, ("Font", "Glyph"), ("字形清理", "Clean Glyphs", "FFpro_CleanGlyphs"))
         _add(center_glyphs, ("Font", "Glyph"), ("水平居中", "Center Glyphs", "FFpro_CenterGlyphs"))
         _add(round_corners, ("Font", "Glyph"), ("圆角拐点…", "Round Corners...", "FFpro_RoundCorners"))
         _add(open_starter, "Font", ("打开模板字体", "Open Starter Font", "FFpro_OpenStarter"))
-        _add(open_manual, ("Font", "Glyph"), ("打开本地教程", "Open Local Manual", "FFpro_OpenManual"))
+        _add(open_manual, ("Font", "Glyph"), ("FFpro 中文教程", "FFpro Manual", "FFpro_OpenManual"))
+        _add(open_official_docs, ("Font", "Glyph"), ("FontForge 官方手册", "FontForge Manual", "FFpro_OfficialDocs"))
         _add(open_about, ("Font", "Glyph"), ("关于 FontForgePro", "About FontForgePro", "FFpro_About"))
         _log("plugin init ok")
     except Exception as exc:

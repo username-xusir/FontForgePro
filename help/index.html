@@ -13,22 +13,25 @@
       <div class="brand-mark">f</div>
       <div>
         <div class="brand-title">FontForgePro</div>
-        <div class="brand-sub">本地教程 · v2.0.1</div>
+        <div class="brand-sub">本地教程 · v2.1.0</div>
       </div>
     </div>
     <div class="nav-label">开始</div>
     <nav class="nav">
       <a href="#quickstart">5 分钟上手</a>
       <a href="#interface">界面地图</a>
+      <a href="#featuremap">功能地图</a>
       <a href="#draw">绘制字形</a>
       <a href="#points">节点编辑</a>
       <a href="#paths">路径与布尔</a>
       <a href="#advanced">组件与排版</a>
       <a href="#ffpro">FFpro 工具</a>
+      <a href="#preview">字体预览</a>
       <a href="#export">导出与验证</a>
       <a href="#shortcuts">快捷键</a>
       <a href="#faq">常见问题</a>
       <a href="#license">许可与来源</a>
+      <a href="official.html">FontForge 官方手册</a>
     </nav>
     <div class="sidebar-foot">
       本页面完全离线。<br>
@@ -50,7 +53,9 @@
         <a href="#quickstart">第一次做字体</a>
         <a href="#points">节点怎么调</a>
         <a href="#ffpro">FFpro 新增了什么</a>
+        <a href="#preview">字体预览</a>
         <a href="#export">怎么导出</a>
+        <a href="official.html">官方完整手册</a>
       </div>
     </header>
 
@@ -91,6 +96,28 @@
       <p>字形窗口右侧的图层列表可以切换前景/背景，也能新建图层。多层字体（比如彩色字体、变量字体）会在这里出现多个层。眼睛图标控制可见性，锁图标控制是否可编辑。</p>
       <div class="note">
         <p><strong>中文界面：</strong>FontForgePro 会根据 Windows 系统语言自动选择中文或英文界面。中文界面使用微软雅黑作为 UI 字体，不会出现方框乱码。</p>
+      </div>
+    </section>
+
+    <section class="section" id="featuremap">
+      <h2>FontForge 功能地图</h2>
+      <p>FontForgePro 没有删减 FontForge 的菜单。下面把主要入口列出来，方便从旧版 FontForge 或别的字体软件迁移过来。每一项的完整说明都在 <a href="official.html">FontForge 官方手册（离线）</a> 里。</p>
+      <table>
+        <thead><tr><th>菜单</th><th>主要功能</th><th>常用入口</th></tr></thead>
+        <tbody>
+          <tr><td>文件</td><td>新建、打开、保存、另存、生成字体、导入/导出、打印、执行脚本、偏好设置、插件配置</td><td><kbd>Ctrl</kbd>+<kbd>N</kbd> / <kbd>Ctrl</kbd>+<kbd>O</kbd> / <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd></td></tr>
+          <tr><td>编辑</td><td>撤销/重做、剪切/复制/粘贴、粘贴为引用、全选、查找、偏好</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd></td></tr>
+          <tr><td>元素</td><td>字体信息、字形信息、变换、对齐、布尔运算、重叠处理、简化、验证、连字、提示、样式</td><td>字体窗口 / 字形窗口</td></tr>
+          <tr><td>工具</td><td>自动追踪、自动 hint、脚本、FFpro 工具（字体体检、预览、清理、圆角等）</td><td>字体窗口 / 字形窗口</td></tr>
+          <tr><td>编码</td><td>编码方式、Unicode 范围、添加/删除编码、重新编码</td><td>字体窗口</td></tr>
+          <tr><td>视图</td><td>缩放、适应窗口、图层、参考线、填充预览、显示控制点、网格</td><td>字形窗口</td></tr>
+          <tr><td>度量</td><td>字距、宽度、居中、连字、自动宽度</td><td><strong>窗口 → 新建度量视图</strong></td></tr>
+          <tr><td>窗口</td><td>新建字形/度量/位图/验证窗口，窗口列表</td><td>任意窗口</td></tr>
+          <tr><td>帮助</td><td>FontForge 帮助、关于、快捷键</td><td>任意窗口</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p>字形窗口里还有 <strong>点</strong> 菜单（节点类型、曲线、切线、坐标）和 <strong>工具</strong> 菜单（绘图工具、FFpro 工具）。不同窗口的菜单会略有差异，这是 FontForge 原本的设计。</p>
       </div>
     </section>
 
@@ -187,6 +214,7 @@
         <thead><tr><th>命令</th><th>作用</th><th>适用窗口</th></tr></thead>
         <tbody>
           <tr><td>字体体检</td><td>统计字形、编码、空字形、零宽/负宽，检查轮廓是否有效</td><td>字体窗口</td></tr>
+          <tr><td>字体预览…</td><td>把当前字体临时导出为 WOFF2，在浏览器里用可编辑文字和 8 档字号预览</td><td>字体 / 字形</td></tr>
           <tr><td>补齐基本字符集</td><td>补上 ASCII、Latin-1、常用标点和符号的空槽位，不覆盖已有字形</td><td>字体窗口</td></tr>
           <tr><td>字形清理</td><td>坐标取整、补极值点、统一轮廓方向；有选中就处理选中，否则询问是否处理全部</td><td>字体 / 字形</td></tr>
           <tr><td>水平居中</td><td>按字符宽度把字形轮廓水平居中，组合字符会跳过</td><td>字体 / 字形</td></tr>
@@ -199,6 +227,21 @@
       <div class="note">
         <p>所有 FFpro 工具都在本地执行，不联网、不上传字体。批量操作前建议先保存 <code>.sfd</code>；清理和圆角会尽量写入 FontForge 的撤销记录，但大范围操作仍建议留备份。</p>
       </div>
+    </section>
+
+    <section class="section" id="preview">
+      <h2>字体预览</h2>
+      <p>FontForge 的字体视图本身就会显示字形缩略图，但设计时经常需要看整段文字在不同字号下的效果。FFpro 增加了一个独立的浏览器预览：</p>
+      <ol class="steps">
+        <li>在字体窗口或任意字形窗口打开 <strong>工具 → FFpro 工具 → 字体预览…</strong>。</li>
+        <li>FontForgePro 会把当前字体临时导出为 WOFF2（如果失败会自动退回 TTF/OTF），写到一个临时目录，不会修改你的工程文件。</li>
+        <li>浏览器会打开预览页。你可以在文本框里输入任意示例文字，页面会同时显示 12、16、24、32、48、64、96、144 px 八档字号，也可以切换深色/浅色。</li>
+        <li>预览页底部的“段落排版”会显示 18px、1.85 行高的正文效果，适合检查中文长文的阅读感。</li>
+      </ol>
+      <div class="note">
+        <p>预览用的是导出后的字体，所以看到的效果和安装/导出后的效果一致；如果字体缺少某些字符，浏览器会用系统字体回退显示。大字体（例如几万个字形的 CJK 字体）生成 WOFF2 时会多等一会儿，生成完成后浏览器才会打开。</p>
+      </div>
+      <p>如果你需要 FontForge 原始界面里的预览方式，也可以使用字体视图的字号切换、字形视图的填充预览，以及 <strong>窗口 → 新建度量视图</strong> 同时查看多个字形。</p>
     </section>
 
     <section class="section" id="export">
@@ -275,6 +318,7 @@
     <section class="section" id="license">
       <h2>许可与来源</h2>
       <p>FontForgePro 以 <strong>FontForge 20251009</strong> 为内核。FontForge 是自由软件，遵循 GNU GPL v3（部分组件为 BSD 许可）。FontForgePro 的界面定制、FFpro 工具和这份教程同样以 GPL-3.0 发布。</p>
+      <p>更完整的界面、菜单、脚本和文件格式参考，见 <a href="official.html">FontForge 官方手册（离线，英文）</a>。它包含官方教程、全部菜单和对话框说明、Python API、OpenType/hinting 技术参考，以及 fontimage/fontlint/sfddiff 等工具文档。</p>
       <p>完整的许可证文本、第三方声明和 FontForge 源码获取方式见应用目录下的 <code>LICENSE</code>、<code>THIRD_PARTY_NOTICES.md</code>，以及项目仓库。</p>
       <div class="note">
         <p>FontForgePro 与 FontForge 原项目没有官方隶属关系。FontForge 的名称和版权归其贡献者所有；“FontForgePro / FFpro”是本项目的产品名。</p>
@@ -283,7 +327,8 @@
     </section>
 
     <footer class="footer">
-      FontForgePro v2.0.1 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网
+      FontForgePro v2.1.0 · 基于 FontForge 20251009 · GPL-3.0 · 本地教程，无需联网<br>
+      <a href="official.html">FontForge 官方手册（离线镜像）</a>
     </footer>
   </main>
 </div>

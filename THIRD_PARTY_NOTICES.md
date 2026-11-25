@@ -15,6 +15,20 @@ FontForgePro bundles and/or links against the following free software.
 The complete corresponding source for the bundled FontForge build is included
 in `vendor/FontForge-20251009-source.zip`.
 
+## FontForge documentation (offline mirror)
+
+- Project: FontForge documentation
+- Version: 20251009
+- Copyright: Copyright (c) 2000–2012 George Williams, 2012–2025 FontForge authors
+- License: GNU General Public License v3.0
+- Source: <https://github.com/fontforge/fontforge/tree/master/doc>
+- Offline mirror: `help/fontforge-docs/` (HTML, English)
+
+The mirrored documentation is included for offline reference. External links
+inside the mirror may not be available offline. The Chinese FFpro manual under
+`help/index.html` is an independent guide and is not a translation of the
+entire official manual.
+
 ## FontForge Windows Builds
 
 - Project: fontforgebuilds

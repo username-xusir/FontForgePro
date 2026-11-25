@@ -1,4 +1,4 @@
-FontForgePro 2.0.1
+FontForgePro 2.1.0
 ==================
 
 一个以原生 FontForge 20251009 为内核的 Windows 字体设计应用。
@@ -16,18 +16,24 @@ FFpro 工具
 在字体窗口或字形窗口打开：工具 → FFpro 工具
 
   · 字体体检
+  · 字体预览（导出临时 WOFF2，在浏览器里看 8 档字号）
   · 补齐基本字符集
   · 字形清理（坐标取整 / 补极值点 / 统一方向）
   · 水平居中
   · 圆角拐点
   · 打开模板字体
-  · 打开本地教程
+  · FFpro 中文教程
+  · FontForge 官方手册（离线）
   · 关于 FontForgePro
 
 本地教程
 --------
-工具 → FFpro 工具 → 打开本地教程
+工具 → FFpro 工具 → FFpro 中文教程
 或直接打开 help\index.html。
+
+FontForge 官方完整手册（英文）已离线镜像：
+工具 → FFpro 工具 → FontForge 官方手册
+或直接打开 help\official.html。
 
 设置与数据
 ----------

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FontForge 官方手册（离线） · FontForgePro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">f</div>
+      <div>
+        <div class="brand-title">FontForgePro</div>
+        <div class="brand-sub">官方手册 · 离线镜像</div>
+      </div>
+    </div>
+    <div class="nav-label">导航</div>
+    <nav class="nav">
+      <a href="index.html">← 返回中文教程</a>
+      <a href="fontforge-docs/index.html">官方手册首页</a>
+      <a href="fontforge-docs/search.html">搜索官方手册</a>
+      <a href="#start">入门教程</a>
+      <a href="#views">界面视图</a>
+      <a href="#menus">菜单</a>
+      <a href="#dialogs">对话框</a>
+      <a href="#tech">技术参考</a>
+      <a href="#scripting">脚本</a>
+      <a href="#utilities">工具</a>
+      <a href="#appendix">附录</a>
+    </nav>
+    <div class="sidebar-foot">
+      FontForge 20251009 官方文档<br>
+      英文原文 · 本地离线<br>
+      GPL-3.0
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="hero">
+      <span class="kicker">FONTFORGE DOCUMENTATION · OFFLINE</span>
+      <h1>FontForge 官方完整手册</h1>
+      <p>
+        这里是从 FontForge 官方文档镜像下来的完整参考，覆盖界面、菜单、对话框、脚本 API、
+        OpenType、hinting、文件格式和工具。内容是英文原文，已全部放在本地，不需要联网。
+        如果你想要中文的快速上手，请先看 <a href="index.html">FFpro 中文教程</a>。
+      </p>
+      <div class="toc">
+        <a href="fontforge-docs/index.html">打开官方手册首页</a>
+        <a href="fontforge-docs/search.html">搜索</a>
+        <a href="index.html">中文教程</a>
+      </div>
+      <div class="note">
+        <p><strong>版本：</strong>FontForge 20251009 文档 · 镜像文件约 700 个 · 共约 9 MB。
+        文档中的外部链接和部分旧语言页面可能无法离线打开，核心页面和搜索均可本地使用。</p>
+      </div>
+    </header>
+
+    <section class="section" id="start">
+      <h2>入门教程</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="fontforge-docs/tutorial.html">FontForge 教程总目录</a></h3><p>官方从零开始的设计教程，建议按顺序阅读。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample.html">设计第一个字形</a></h3><p>建立字体、画轮廓、设置宽度和导出。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample2.html">更多绘图</a></h3><p>曲线、节点类型、参考线和背景层。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample3.html">间距与字距</a></h3><p>metrics view、kerning、连字基础。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample4.html">组件与重音</a></h3><p>引用、锚点、组合字符。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample5.html">OpenType 特性</a></h3><p>替换、连字和特性文件。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample6.html">多母版与变量字体</a></h3><p>设计空间、实例和插值。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editexample7.html">导出与测试</a></h3><p>生成 TTF/OTF，检查安装效果。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/editspiro.html">Spiro 曲线</a></h3><p>用曲率控制的平滑轮廓。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/importexample.html">导入现有字体</a></h3><p>打开 TTF/OTF/SVG 并修改。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/scripting-tutorial.html">脚本入门</a></h3><p>用 Python 批量处理字体。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/tutorial/scriptnotes.html">脚本注意事项</a></h3><p>图层、撤销和 UI 扩展的细节。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="views">
+      <h2>界面视图</h2>
+      <table>
+        <thead><tr><th>页面</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><a href="fontforge-docs/ui/mainviews/fontview.html">字体视图</a></td><td>字符网格、预览字号、标签、编码槽位</td></tr>
+          <tr><td><a href="fontforge-docs/ui/mainviews/charview.html">字形视图</a></td><td>轮廓编辑、节点、工具栏、图层、标尺</td></tr>
+          <tr><td><a href="fontforge-docs/ui/mainviews/metricsview.html">度量视图</a></td><td>宽度、边距、字距、连字</td></tr>
+          <tr><td><a href="fontforge-docs/ui/mainviews/bitmapview.html">位图视图</a></td><td>像素字体和 bitmap strikes</td></tr>
+          <tr><td><a href="fontforge-docs/ui/mainviews.html">视图总览</a></td><td>各个主窗口之间的关系</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="menus">
+      <h2>菜单参考</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/filemenu.html">文件菜单</a></h3><p>新建、打开、保存、生成、导入导出、打印。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/editmenu.html">编辑菜单</a></h3><p>撤销、复制粘贴、选择和引用。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/elementmenu.html">元素菜单</a></h3><p>变换、布尔、重叠、简化、验证。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/toolsmenu.html">工具菜单</a></h3><p>自动操作、脚本、FFpro 工具所在位置。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/pointmenu.html">点菜单</a></h3><p>节点类型、曲线、切线、坐标。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/viewmenu.html">视图菜单</a></h3><p>缩放、适应、图层、参考线显示。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/metricsmenu.html">度量菜单</a></h3><p>字距、宽度、居中、连字。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/encodingmenu.html">编码菜单</a></h3><p>编码、Unicode 范围、字形槽位。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/hintsmenu.html">Hint 菜单</a></h3><p>PostScript hint、自动 hint、指令。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/windowmenu.html">窗口菜单</a></h3><p>打开字形/度量/位图窗口，窗口列表。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/cidmenu.html">CID 菜单</a></h3><p>CJK CID 字体相关操作。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/ui/menus/mmmenu.html">多母版菜单</a></h3><p>设计空间和实例。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="dialogs">
+      <h2>对话框</h2>
+      <table>
+        <thead><tr><th>对话框</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><a href="fontforge-docs/ui/dialogs/fontinfo.html">字体信息</a></td><td>名称、版本、上下伸、OS/2、GSUB/GPOS、Mac 信息</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/generate.html">生成字体</a></td><td>TTF/OTF/WOFF、选项、hinting、错误处理</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/prefs.html">偏好设置</a></td><td>界面、编辑、生成、脚本、插件</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/charinfo.html">字形信息</a></td><td>Unicode、名称、宽度、连字、替代</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/lookups.html">查找与特性</a></td><td>GSUB/GPOS 查找、特性文件</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/math.html">数学字体</a></td><td>MATH 表、数学字形</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/multiplemaster.html">多母版</a></td><td>轴、实例、插值</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/validation.html">验证</a></td><td>轮廓、方向、自交、开放路径</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/transform.html">变换</a></td><td>数值移动、旋转、缩放、倾斜</td></tr>
+          <tr><td><a href="fontforge-docs/ui/dialogs/ttfinstrs.html">TrueType 指令</a></td><td>字节码、调试、hinting</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="tech">
+      <h2>技术参考</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="fontforge-docs/techref/bezier.html">贝塞尔曲线</a></h3><p>三次/二次曲线、节点、控制柄。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/hinting.html">Hinting</a></h3><p>PostScript hints 和 TrueType 指令。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/featurefile.html">特性文件</a></h3><p>AFDKO .fea 语法与导入。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/gposgsub.html">GSUB/GPOS</a></h3><p>OpenType 布局表结构。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/TrueOpenTables.html">TrueType/OpenType 表</a></h3><p>各表的作用和注意事项。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/sfdformat.html">SFD 格式</a></h3><p>FontForge 原生工程文件格式。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/stroke.html">描边</a></h3><p>轮廓扩展为有宽度的形状。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/non-standard.html">非标准扩展</a></h3><p>FontForge 的特殊表与扩展。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="scripting">
+      <h2>脚本与 API</h2>
+      <table>
+        <thead><tr><th>页面</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><a href="fontforge-docs/scripting/python.html">Python 脚本</a></td><td>在 FontForge 中使用 Python 的总览</td></tr>
+          <tr><td><a href="fontforge-docs/scripting/python/fontforge.html">fontforge 模块 API</a></td><td>字体、字形、轮廓、点、查找、UI 函数</td></tr>
+          <tr><td><a href="fontforge-docs/scripting/python/psMat.html">psMat 模块</a></td><td>变换矩阵</td></tr>
+          <tr><td><a href="fontforge-docs/scripting/scripting-alpha.html">Legacy 脚本</a></td><td>FontForge 旧脚本语言</td></tr>
+          <tr><td><a href="fontforge-docs/techref/pyextend.html">扩展 UI</a></td><td>注册菜单、插件、图层和撤销</td></tr>
+          <tr><td><a href="fontforge-docs/techref/plugins.html">插件系统</a></td><td>entry point、配置和加载</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="utilities">
+      <h2>命令行工具</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="fontforge-docs/fontutils/fontimage.html">fontimage</a></h3><p>把字体渲染成图片/缩略图。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/fontutils/fontlint.html">fontlint</a></h3><p>检查字体结构和常见错误。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/fontutils/sfddiff.html">sfddiff</a></h3><p>比较两个字体/SFD 的差异。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/techref/cliargs.html">命令行参数</a></h3><p>fontforge.exe 的启动选项。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="appendix">
+      <h2>附录</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="fontforge-docs/faq.html">常见问题</a></h3><p>官方 FAQ。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/glossary.html">术语表</a></h3><p>字体设计术语解释。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/appendices/files.html">文件格式</a></h3><p>FontForge 支持的文件类型。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/appendices/fontstyles.html">字体样式</a></h3><p>Regular/Bold/Italic 的组织。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/appendices/ff-history.html">FontForge 历史</a></h3><p>项目的发展过程。</p></div>
+        <div class="card"><h3><a href="fontforge-docs/genindex.html">总索引</a></h3><p>按字母排列的全部条目。</p></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      FontForge 20251009 官方文档离线镜像 · 英文原文 · GPL-3.0<br>
+      文档版权归 FontForge 作者所有；镜像仅用于本地离线查阅。<br>
+      <a href="index.html">FFpro 中文教程</a> · <a href="fontforge-docs/index.html">官方手册首页</a>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-FontForgePro 2.0.1 — Corresponding Source
+FontForgePro 2.1.0 — Corresponding Source
 =========================================
 
 This package includes the source code for the FontForgePro-specific parts:
@@ -11,6 +11,23 @@ This package includes the source code for the FontForgePro-specific parts:
     FFpro-Starter.sfd            Starter font template
     build.ps1, install.ps1, uninstall.ps1
     README.md
+
+The Chinese manual, preview template, and Chinese navigation for the official
+documentation are under:
+
+  help\index.html
+  help\about.html
+  help\official.html
+  help\preview-template.html
+  help\style.css
+
+The offline mirror of the official FontForge 20251009 documentation is under:
+
+  help\fontforge-docs\
+
+Its source (Sphinx .rst files) is included in the FontForge source archive:
+
+  vendor\FontForge-20251009-source.zip  ->  doc/sphinx/
 
 FontForge 20251009 source code is included at:
 

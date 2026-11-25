@@ -1,4 +1,4 @@
-# FontForgePro (FFpro) 2.0.1
+# FontForgePro (FFpro) 2.1.0
 
 A Windows font editor built on the **native FontForge 20251009** application.
 FontForgePro keeps all of FontForge's professional features and adds a dark
@@ -13,6 +13,10 @@ workflow tools, a starter font, and an offline manual.
 ![Font view](docs/screenshots/fontview.png)
 
 ![Offline manual](docs/screenshots/help.png)
+
+![Font preview](docs/screenshots/preview.png)
+
+![Offline FontForge documentation](docs/screenshots/official.png)
 
 ## Download
 
@@ -43,12 +47,14 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 | Command | What it does |
 | --- | --- |
 | 字体体检 / Font Audit | Counts glyphs, reports empty/zero-width/negative-width glyphs, runs FontForge validation |
+| 字体预览… / Font Preview... | Exports a temporary WOFF2 and opens a local preview page with editable text and eight sizes |
 | 补齐基本字符集 / Add Basic Character Set | Adds ASCII, Latin-1, and common punctuation slots with sensible widths |
 | 字形清理 / Clean Glyphs | Rounds coordinates, adds extrema, and corrects contour direction |
 | 水平居中 / Center Glyphs | Centers outlines inside the advance width |
 | 圆角拐点 / Round Corners | Rounds sharp line-to-line corners to a chosen radius |
 | 打开模板字体 / Open Starter Font | Opens a copy of the FFpro Starter template |
-| 打开本地教程 / Open Local Manual | Opens the bundled Chinese manual |
+| FFpro 中文教程 / FFpro Manual | Opens the bundled Chinese tutorial |
+| FontForge 官方手册 / FontForge Manual | Opens the offline mirror of the official FontForge documentation |
 | 关于 FontForgePro / About | Version, license, and source information |
 
 ### Appearance and localization
@@ -56,6 +62,10 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
 - Dark, monochrome editor theme for the font grid, glyph canvas, menus, and dialogs
 - UI language follows the Windows system language through FontForge's gettext catalogs
 - CJK-capable UI font fallback (Microsoft YaHei UI, Yu Gothic UI, Malgun Gothic)
+- Font preview: temporary WOFF2 export opened in a local page with editable text,
+  eight sizes (12–144 px), paragraph specimen, and light/dark modes
+- Offline mirror of the official FontForge 20251009 documentation (about 700
+  files, 9 MB) with a Chinese navigation hub and working local search
 - Separate settings directory (`%APPDATA%\FontForgePro`) so an existing
   FontForge installation is not modified
 
@@ -86,8 +96,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.0.1-win64.zip` — release archive
-- `release\FontForgePro-v2.0.1-win64.zip.sha256`
+- `release\FontForgePro-v2.1.0-win64.zip` — release archive
+- `release\FontForgePro-v2.1.0-win64.zip.sha256`
 
 Install for the current user:
 
@@ -108,7 +118,8 @@ plugins/ffpro_tools.py       FFpro FontForge plugin
 plugins/*.dist-info/         Entry-point metadata that lets FontForge discover it
 resources/ffpro.resources    Dark theme + CJK UI font configuration
 templates/FFpro-Starter.sfd  Starter font with basic character slots
-help/                        Offline manual and about page
+help/                        Offline Chinese manual, preview template, official docs hub
+help/fontforge-docs/        Mirrored official FontForge 20251009 documentation
 build.ps1 / install.ps1      Build and install scripts
 vendor/                      FontForge source (GPL compliance)
 ```
@@ -125,7 +136,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.0.1 is a
+It remains available from the repository's release history. Version 2.1.0 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 

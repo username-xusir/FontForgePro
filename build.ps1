@@ -8,7 +8,7 @@ $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Dist = Join-Path $Root "dist\FontForgePro"
 $App = Join-Path $Dist "app"
 $Release = Join-Path $Root "release"
-$Version = "2.0.1"
+$Version = "2.1.0"
 $Csc = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
 Write-Host "FontForgePro build $Version"
@@ -50,7 +50,11 @@ New-Item -ItemType Directory -Force -Path (Join-Path $Dist "help") | Out-Null
 Write-Host "Copying FFpro resources ..."
 Copy-Item -Force (Join-Path $Root "resources\ffpro.resources") (Join-Path $Dist "resources\ffpro.resources")
 Copy-Item -Force (Join-Path $Root "resources\app.ico") (Join-Path $Dist "resources\app.ico")
-Copy-Item -Force (Join-Path $Root "help\*") (Join-Path $Dist "help")
+$HelpDist = Join-Path $Dist "help"
+if (Test-Path $HelpDist) {
+    Remove-Item -Recurse -Force $HelpDist
+}
+Copy-Item -Recurse -Force (Join-Path $Root "help") $Dist
 Copy-Item -Force (Join-Path $Root "templates\FFpro-Starter.sfd") (Join-Path $Dist "templates\FFpro-Starter.sfd")
 
 Write-Host "Installing FFpro Python plugin ..."
@@ -59,11 +63,11 @@ if (-not (Test-Path $PySite)) {
     throw "Python site-packages not found: $PySite"
 }
 Copy-Item -Force (Join-Path $Root "plugins\ffpro_tools.py") (Join-Path $PySite "ffpro_tools.py")
-$DistInfo = Join-Path $PySite "ffpro_tools-2.0.1.dist-info"
+$DistInfo = Join-Path $PySite "ffpro_tools-2.1.0.dist-info"
 if (Test-Path $DistInfo) {
     Remove-Item -Recurse -Force $DistInfo
 }
-Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.0.1.dist-info") $DistInfo
+Copy-Item -Recurse -Force (Join-Path $Root "plugins\ffpro_tools-2.1.0.dist-info") $DistInfo
 
 Write-Host "Compiling launcher ..."
 $Icon = Join-Path $Root "resources\app.ico"
