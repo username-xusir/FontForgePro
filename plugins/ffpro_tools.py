@@ -24,7 +24,7 @@ import webbrowser
 import fontforge
 import psMat
 
-PLUGIN_VERSION = "2.4.0"
+PLUGIN_VERSION = "2.4.1"
 
 SUBMENU_LABELS = {
     "zh": "FFpro 工具",

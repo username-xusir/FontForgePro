@@ -15,8 +15,8 @@ using System.Windows.Forms;
 [assembly: AssemblyProduct("FontForgePro")]
 [assembly: AssemblyCompany("FontForgePro")]
 [assembly: AssemblyCopyright("GPL-3.0-or-later")]
-[assembly: AssemblyVersion("2.4.0.0")]
-[assembly: AssemblyFileVersion("2.4.0.0")]
+[assembly: AssemblyVersion("2.4.1.0")]
+[assembly: AssemblyFileVersion("2.4.1.0")]
 
 namespace FontForgePro
 {
@@ -205,7 +205,7 @@ namespace FontForgePro
 
             env["APPDATA"] = appData;
             env["FFPRO_HOME"] = _home;
-            env["FFPRO_VERSION"] = "2.4.0";
+            env["FFPRO_VERSION"] = "2.4.1";
             env["PYTHONIOENCODING"] = "utf-8";
             env["PYTHONUTF8"] = "1";
             env["LANG"] = locale + ".UTF-8";
@@ -409,10 +409,11 @@ namespace FontForgePro
                 // Keep the packaged resource if a writable copy cannot be made.
             }
 
-            const int fvSize = 48;
-            int cols = (screen.Width - 120) / (fvSize + 8);
+            int fvSize = (int)Math.Round(48.0 * dpi / 96.0);
+            fvSize = Math.Max(48, Math.Min(96, fvSize));
+            int cols = (screen.Width - 160) / (fvSize + 8);
             int rows = (screen.Height - 380) / (fvSize + 8);
-            cols = Math.Max(12, Math.Min(32, cols));
+            cols = Math.Max(12, Math.Min(26, cols));
             rows = Math.Max(4, Math.Min(10, rows));
 
             string prefsPath = Path.Combine(ffUser, "prefs");
@@ -429,7 +430,7 @@ namespace FontForgePro
             SetPref(prefs, "UndoDepth", "200");
             SetPref(prefs, "SnapToInt", "1");
             SetPref(prefs, "ShowControlPointsAlways", "1");
-            SetPref(prefs, "FreeTypeInFontView", "1");
+            SetPref(prefs, "FreeTypeInFontView", "0");
             SetPref(prefs, "OpenCharsInNewWindow", "0");
             SetPref(prefs, "SaveEditorState", "0");
             SetPref(prefs, "DefaultFVSize", fvSize.ToString(CultureInfo.InvariantCulture));
@@ -474,7 +475,7 @@ namespace FontForgePro
                 Directory.CreateDirectory(appData);
                 File.WriteAllText(
                     OnboardingMarker(appData),
-                    "2.4.0",
+                    "2.4.1",
                     new UTF8Encoding(false));
             }
             catch

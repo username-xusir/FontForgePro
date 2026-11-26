@@ -2,78 +2,78 @@ fontforge.View.DefaultFont: 13pt Microsoft YaHei UI,Noto Sans SC,Yu Gothic UI,Ma
 fontforge.View.LabelFont: ^View.DefaultFont Deja Vu Sans,Calibri,unifont,unifont upper
 fontforge.View.MonoFont: ^View.DefaultFont monospace,unifont
 fontforge.View.SerifFont: ^View.DefaultFont serif
-fontforge.View.Background: #0b0b0c
+fontforge.View.Background: #ffffff
 
-fontforge.FontView.GlyphFGColor: #f4f4f5
-fontforge.FontView.GlyphInfoColor: #f4f4f5
-fontforge.FontView.SlotOutlineColor: #1e1e22
-fontforge.FontView.SlotDivisionColor: #1e1e22
-fontforge.FontView.LabelColor: #d4d4d8
-fontforge.FontView.UnencodedLabelColor: #8a8a92
-fontforge.FontView.MissingLabelColor: #ff7b72
-fontforge.FontView.EmptySlotFgColor: #17171a
-fontforge.FontView.SelectedColor: #ffffff
-fontforge.FontView.SelectedFgColor: #000000
-fontforge.FontView.ChangedColor: #ffffff
-fontforge.FontView.MissingBitmapColor: #ff7b72
-fontforge.FontView.MissingOutlineColor: #9ad88a
-fontforge.FontView.HintingNeededColor: #f4f4f5
-fontforge.FontView.MetricsAdvanceAtColor: #9ad88a
-fontforge.FontView.MetricsAdvanceToColor: #9ad88a
-fontforge.FontView.MetricsBaselineColor: #79c0ff
-fontforge.FontView.MetricsGlyphContourColor: #c8a27a
-fontforge.FontView.MetricsOriginColor: #ff8a8a
+fontforge.FontView.GlyphFGColor: #111114
+fontforge.FontView.GlyphInfoColor: #333338
+fontforge.FontView.SlotOutlineColor: #d6d6d0
+fontforge.FontView.SlotDivisionColor: #e6e6e0
+fontforge.FontView.LabelColor: #222226
+fontforge.FontView.UnencodedLabelColor: #77777e
+fontforge.FontView.MissingLabelColor: #c0392b
+fontforge.FontView.EmptySlotFgColor: #f1f1ed
+fontforge.FontView.SelectedColor: #111114
+fontforge.FontView.SelectedFgColor: #ffffff
+fontforge.FontView.ChangedColor: #111114
+fontforge.FontView.MissingBitmapColor: #c0392b
+fontforge.FontView.MissingOutlineColor: #2e7d32
+fontforge.FontView.HintingNeededColor: #111114
+fontforge.FontView.MetricsAdvanceAtColor: #2e7d32
+fontforge.FontView.MetricsAdvanceToColor: #2e7d32
+fontforge.FontView.MetricsBaselineColor: #1565c0
+fontforge.FontView.MetricsGlyphContourColor: #8a5a2b
+fontforge.FontView.MetricsOriginColor: #c0392b
 fontforge.FontView.Font: 78% ^View.LabelFont
 
-fontforge.CharView.PointColor: #ff7b72
-fontforge.CharView.FirstPointColor: #e3b341
-fontforge.CharView.SelectedPointColor: #ffffff
+fontforge.CharView.PointColor: #d9534f
+fontforge.CharView.FirstPointColor: #b8860b
+fontforge.CharView.SelectedPointColor: #111114
 fontforge.CharView.SelectedPointWidth: 2
-fontforge.CharView.ExtremePointColor: #ff7bd5
-fontforge.CharView.PointOfInflectionColor: #56d4dd
-fontforge.CharView.AlmostHVColor: #7ee787
-fontforge.CharView.NextCPColor: #79c0ff
-fontforge.CharView.PrevCPColor: #d2a8ff
-fontforge.CharView.SelectedCPColor: #ffffff
-fontforge.CharView.AnchorColor: #79c0ff
+fontforge.CharView.ExtremePointColor: #c2185b
+fontforge.CharView.PointOfInflectionColor: #00838f
+fontforge.CharView.AlmostHVColor: #2e7d32
+fontforge.CharView.NextCPColor: #1565c0
+fontforge.CharView.PrevCPColor: #6a1b9a
+fontforge.CharView.SelectedCPColor: #111114
+fontforge.CharView.AnchorColor: #1565c0
 fontforge.CharView.LabelFont: 83% ^View.DefaultFont
 fontforge.CharView.IconFont: 24pt ^View.SerifFont
 fontforge.CharView.PointNumberFont: 66% ^View.DefaultFont
 
-fontforge.CharView.ForegroundOutlineColor: #f4f4f5
-fontforge.CharView.ForegroundThickOutlineColor: #40f4f4f5
-fontforge.CharView.FillColor: #30f4f4f5
-fontforge.CharView.PreviewFillColor: #30f4f4f5
-fontforge.CharView.OpenPathColor: #80ff7b72
-fontforge.CharView.ClipPathColor: #79c0ff
-fontforge.CharView.BackgroundOutlineColor: #6e7681
-fontforge.CharView.BackgroundThickOutlineColor: #306e7681
-fontforge.CharView.WidthColor: #f4f4f5
-fontforge.CharView.WidthSelColor: #7ee787
-fontforge.CharView.LBearingSelColor: #7ee787
-fontforge.CharView.LigatureCaretColor: #d2a8ff
-fontforge.CharView.AnchoredOutlineColor: #79c0ff
-fontforge.CharView.CoordinateLineColor: #4a4a52
+fontforge.CharView.ForegroundOutlineColor: #111114
+fontforge.CharView.ForegroundThickOutlineColor: #40111114
+fontforge.CharView.FillColor: #30000000
+fontforge.CharView.PreviewFillColor: #30000000
+fontforge.CharView.OpenPathColor: #80c0392b
+fontforge.CharView.ClipPathColor: #1565c0
+fontforge.CharView.BackgroundOutlineColor: #8a8a92
+fontforge.CharView.BackgroundThickOutlineColor: #308a8a92
+fontforge.CharView.WidthColor: #111114
+fontforge.CharView.WidthSelColor: #2e7d32
+fontforge.CharView.LBearingSelColor: #2e7d32
+fontforge.CharView.LigatureCaretColor: #6a1b9a
+fontforge.CharView.AnchoredOutlineColor: #1565c0
+fontforge.CharView.CoordinateLineColor: #9a9a9a
 fontforge.CharView.AscentDescentColor: #806e7681
-fontforge.CharView.ItalicCoordColor: #6e7681
-fontforge.CharView.MetricsLabelColor: #d4d4d8
-fontforge.CharView.TemplateOutlineColor: #6e7681
-fontforge.CharView.RulerBigTickColor: #8a8a92
-fontforge.CharView.RulerCurrentTickColor: #ffffff
+fontforge.CharView.ItalicCoordColor: #8a8a92
+fontforge.CharView.MetricsLabelColor: #333338
+fontforge.CharView.TemplateOutlineColor: #8a8a92
+fontforge.CharView.RulerBigTickColor: #55555c
+fontforge.CharView.RulerCurrentTickColor: #111114
 fontforge.CharView.RulerFont: 66% ^View.DefaultFont
-fontforge.CharView.GuideOutlineColor: #6e7681
-fontforge.CharView.GuideDragColor: #f4f4f5
+fontforge.CharView.GuideOutlineColor: #8a8a92
+fontforge.CharView.GuideDragColor: #111114
 
-fontforge.CharView.TraceColor: #6e7681
-fontforge.CharView.OldOutlineColor: #6e7681
-fontforge.CharView.TransformOriginColor: #ffffff
+fontforge.CharView.TraceColor: #9a9a9a
+fontforge.CharView.OldOutlineColor: #b0b0b0
+fontforge.CharView.TransformOriginColor: #111114
 fontforge.CharView.DraggingComparisonOutlineColor: #8800bb00
 fontforge.CharView.DraggingComparisonAlphaChannelOverride: #88000000
-fontforge.CharView.MeasureToolLineColor: #8a8a92
-fontforge.CharView.MeasureToolPointColor: #ff7b72
-fontforge.CharView.MeasureToolPointSnappedColor: #7ee787
-fontforge.CharView.MeasureToolCanvasNumbersColor: #ff7b72
-fontforge.CharView.MeasureToolCanvasNumbersSnappedColor: #7ee787
+fontforge.CharView.MeasureToolLineColor: #55555c
+fontforge.CharView.MeasureToolPointColor: #c0392b
+fontforge.CharView.MeasureToolPointSnappedColor: #2e7d32
+fontforge.CharView.MeasureToolCanvasNumbersColor: #c0392b
+fontforge.CharView.MeasureToolCanvasNumbersSnappedColor: #2e7d32
 fontforge.CharView.MeasureToolWindowForeground: #f4f4f5
 fontforge.CharView.MeasureToolWindowBackground: #1c1c20
 fontforge.CharView.MeasureToolFont: 76% ^View.MonoFont
@@ -92,13 +92,13 @@ fontforge.CharView.HHintActiveColor: #00a000
 fontforge.CharView.VHintActiveColor: #0000ff
 fontforge.CharView.DeltaGridColor: #cc0000
 
-fontforge.CharView.GridFitOutlineColor: #6e7681
-fontforge.CharView.GridFitWidthColor: #6e7681
-fontforge.CharView.RasterColor: #ff6e7681
+fontforge.CharView.GridFitOutlineColor: #55555c
+fontforge.CharView.GridFitWidthColor: #55555c
+fontforge.CharView.RasterColor: #ffb0b0aa
 fontforge.CharView.RasterNewColor: #ff8a8a92
 fontforge.CharView.RasterOldColor: #ff4a4a52
 fontforge.CharView.RasterGridColor: #ff4a4a52
-fontforge.CharView.RasterDarkColor: #ff1c1c20
+fontforge.CharView.RasterDarkColor: #ffd0d0c8
 fontforge.CharView.BackgroundImageColor: #fe3a3a40
 
 fontforge.CharView.CVPaletteForegroundColor: #f4f4f5

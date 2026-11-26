@@ -1,4 +1,4 @@
-FontForgePro 2.4.0 — Corresponding Source
+FontForgePro 2.4.1 — Corresponding Source
 =========================================
 
 This package includes the source code for the FontForgePro-specific parts:

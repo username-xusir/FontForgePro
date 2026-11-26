@@ -1,8 +1,7 @@
-# FontForgePro (FFpro) 2.4.0
+# FontForgePro (FFpro) 2.4.1
 
 A Windows font editor built on the **native FontForge 20251009** application.
-FontForgePro keeps all of FontForge's professional features and adds a dark
-monochrome appearance, Chinese/multilingual UI handling, a small set of FFpro
+FontForgePro keeps all of FontForge's professional features and adds dark chrome with a white font view and glyph canvas, Chinese/multilingual UI handling, a small set of FFpro
 workflow tools, a starter font, and an offline manual.
 
 > FontForgePro is an independent product built on FontForge. It is not
@@ -87,6 +86,10 @@ Found under **工具 → FFpro 工具** (Tools → FFpro Tools):
   font is 13 pt, and the default font-view window is sized from the screen so
   low-resolution displays get fewer, larger cells instead of a wall of tiny
   slots.
+- **White editing canvas**: the font view and glyph canvas use a white
+  background with black outlines, while menus, toolbars, and palettes stay
+  dark. Grid, slot, point, and metrics colors were retuned for the light
+  surface.
 - **Toolbar help**: hover a glyph-window tool for its translated name and
   shortcut after 0.25 s; the local **Tools and Grid Guide** names every icon,
   explains the `Mse1`/`^Mse1`/`Mse2`/`^Mse2` mouse assignments, the `#` grid
@@ -172,8 +175,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File build.ps1
 Output:
 
 - `dist\FontForgePro\` — runnable application directory
-- `release\FontForgePro-v2.4.0-win64.zip` — release archive
-- `release\FontForgePro-v2.4.0-win64.zip.sha256`
+- `release\FontForgePro-v2.4.1-win64.zip` — release archive
+- `release\FontForgePro-v2.4.1-win64.zip.sha256`
 
 Install for the current user:
 
@@ -191,7 +194,7 @@ ARM64 (Windows 11 x64 emulation package):
 powershell -NoProfile -ExecutionPolicy Bypass -File build-arm64.ps1
 ```
 
-The result is `release\FontForgePro-v2.4.0-win-arm64.zip`. See
+The result is `release\FontForgePro-v2.4.1-win-arm64.zip`. See
 [ARM64.md](ARM64.md) for the native ARM64 build path.
 
 ## Project layout
@@ -234,7 +237,7 @@ package is placed on `sys.path`.
 ## Relationship to the previous FFpro
 
 The earlier `v1.0.0` release was an Electron application built on Glyphr Studio.
-It remains available from the repository's release history. Version 2.4.0 is a
+It remains available from the repository's release history. Version 2.4.1 is a
 different foundation: the native FontForge application. Font files and `.sfd`
 projects are compatible with FontForge.
 
